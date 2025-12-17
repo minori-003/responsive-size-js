@@ -29,21 +29,27 @@ function rClampRem(
     { allowReverse, minViewportDiff }
 );
 
+    const round = (v) => Number(v.toFixed(precision));
     const clampMinPx = Math.min(min, max);
     const clampMaxPx = Math.max(min, max);
 
     const vwCoef = slope * 100;
+    const absVwCoef = Math.abs(vwCoef);
+    const vwPart =
+        slope < 0
+            ? `-${round(absVwCoef)}vw`
+            : `${round(absVwCoef)}vw`;
 
     const clampMinRem = pxToRemRaw(clampMinPx, baseFontSize);
     const clampMaxRem = pxToRemRaw(clampMaxPx, baseFontSize);
     const interceptRem = pxToRemRaw(intercept, baseFontSize);
 
-    const round = (v) => Number(v.toFixed(precision));
+    
 
-    const sign = interceptRem < 0 ? '-' : '+';
+    const interceptSign = interceptRem < 0 ? '-' : '+';
     const absInterceptRem = Math.abs(interceptRem);
 
-    return `clamp(${round(clampMinRem)}rem, calc(${round(vwCoef)}vw ${sign} ${round(absInterceptRem)}rem), ${round(clampMaxRem)}rem)`;
+    return `clamp(${round(clampMinRem)}rem, calc(${vwPart} ${interceptSign} ${round(absInterceptRem)}rem), ${round(clampMaxRem)}rem)`;
 }
 
 export { rClampRem };

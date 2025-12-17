@@ -23,7 +23,7 @@ describe('rClampPx', () => {
     expect(result).toMatch(/vw \+ \d+(\.\d+)?px/);
   });
 
-  it('uses - when intercept is negative', () => {
+  it('uses negative slope for reverse scaling', () => {
     const result = rClampPx(
       32,
       16,
@@ -31,6 +31,13 @@ describe('rClampPx', () => {
       1440,
       { allowReverse: true }
     );
+    // Slope is negative, intercept is positive
+    expect(result).toMatch(/vw \+ \d+(\.\d+)?px/);
+  });
+
+  it('uses - when intercept is negative', () => {
+    // 10 -> 100 over 375 -> 1440 results in negative intercept
+    const result = rClampPx(10, 100, 375, 1440);
     expect(result).toMatch(/vw - \d+(\.\d+)?px/);
   });
 

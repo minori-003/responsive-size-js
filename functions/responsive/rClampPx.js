@@ -2,7 +2,6 @@
 import { rClampRaw } from './rClampRaw.js';
 import { variable } from '../../setting/index.js';
 
-
 function rClampPx(
     minSize,
     maxSize,
@@ -27,17 +26,23 @@ function rClampPx(
         { allowReverse, minViewportDiff }
     );
 
+
+    const round = (v) => Number(v.toFixed(precision));
+
     const clampMin = Math.min(min, max);
     const clampMax = Math.max(min, max);
 
     const vwCoef = slope * 100;
+    const absVwCoef = Math.abs(vwCoef);
+    const vwPart =
+        slope < 0
+            ? `-${round(absVwCoef)}vw`
+            : `${round(absVwCoef)}vw`;
 
-    const round = (v) => Number(v.toFixed(precision));
-
-    const sign = intercept < 0 ? '-' : '+';
+    const interceptSign = intercept < 0 ? '-' : '+';
     const absIntercept = Math.abs(intercept);
 
-    return `clamp(${round(clampMin)}px, calc(${round(vwCoef)}vw ${sign} ${round(absIntercept)}px), ${round(clampMax)}px)`;
+    return `clamp(${round(clampMin)}px, calc(${vwPart} ${interceptSign} ${round(absIntercept)}px), ${round(clampMax)}px)`;
 
 }
 

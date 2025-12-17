@@ -45,11 +45,11 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/minori-003/sass-responsive-util-JavaScript.git"
+    "url": "git+https://github.com/minori-003/responsive-util-js.git"
   },
-  "homepage": "https://github.com/minori-003/sass-responsive-util-JavaScript#readme",
+  "homepage": "https://github.com/minori-003/responsive-util-js",
   "bugs": {
-    "url": "https://github.com/minori-003/sass-responsive-util-JavaScript/issues"
+    "url": "https://github.com/minori-003/responsive-util-js/issues"
   },
   "devDependencies": {
     "vitest": "^3.2.4"
