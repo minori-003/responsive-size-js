@@ -1,0 +1,57 @@
+{
+  "name": "sass-responsive-util-javascript",
+  "version": "1.0.0",
+  "description": "レスポンシブデザインのための単位変換とFluid Typographyユーティリティライブラリ。px/rem/pt変換、CSS clamp()生成など、モダンなWebデザインに必要な機能を提供します。",
+  "type": "module",
+  "main": "./functions/index.js",
+  "exports": {
+    ".": {
+      "import": "./functions/index.js",
+      "types": "./types/index.d.ts"
+    },
+    "./conversion": "./functions/conversion/*",
+    "./responsive": "./functions/responsive/*",
+    "./utils": "./functions/utils/*"
+  },
+  "files": [
+    "functions/",
+    "setting/",
+    "types/",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "keywords": [
+    "responsive",
+    "css",
+    "fluid-typography",
+    "clamp",
+    "unit-conversion",
+    "px-to-rem",
+    "rem-to-px",
+    "web-design",
+    "typography",
+    "sass",
+    "utilities"
+  ],
+  "author": {
+    "name": "Minori Koishi",
+    "email": "",
+    "url": "https://github.com/minori-003"
+    },
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/minori-003/sass-responsive-util-JavaScript.git"
+  },
+  "homepage": "https://github.com/minori-003/sass-responsive-util-JavaScript#readme",
+  "bugs": {
+    "url": "https://github.com/minori-003/sass-responsive-util-JavaScript/issues"
+  },
+  "devDependencies": {
+    "vitest": "^3.2.4"
+  }
+}

@@ -1,0 +1,208 @@
+# sass-responsive-util-JavaScript
+
+<parameter name="Leスポンシブデザインのための単位変換とFluid Typographyユーティリティライブラリ
+
+[![npm version](https://img.shields.io/npm/v/sass-responsive-util-javascript.svg)](https://www.npmjs.com/package/sass-responsive-util-javascript)
+[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
+
+モダンなWebデザインに必要な単位変換（px/rem/pt）とFluid Typography（CSS `clamp()`生成）を提供するJavaScript/TypeScriptライブラリです。
+
+## ✨ 特徴
+
+- 🎯 **単位変換**: px ⇔ rem ⇔ pt の相互変換
+- 📐 **Fluid Typography**: レスポンシブなCSS `clamp()` 生成
+- 🌲 **Tree-shakable**: ES Modules対応で必要な関数だけをインポート
+- 🧪 **テスト済み**: 21個のテストで品質を保証
+- 📦 **軽量**: 依存関係なし、シンプルな実装
+- 🔧 **TypeScript対応**: 型定義ファイル付き（予定）
+
+## 📦 インストール
+
+```bash
+npm install sass-responsive-util-javascript
+```
+
+または
+
+```bash
+yarn add sass-responsive-util-javascript
+```
+
+## 🚀 使い方
+
+### 基本的な単位変換
+
+```javascript
+import { pxToRem, remToPx, ptToPx, pxToPt } from 'sass-responsive-util-javascript';
+
+// px → rem
+pxToRem(16);           // '1rem' (デフォルトbase: 16px)
+pxToRem(32, 16);       // '2rem'
+pxToRem(24, 10);       // '2.4rem'
+
+// rem → px
+remToPx(1);            // '16px' (デフォルトbase: 16px)
+remToPx(2, 20);        // '40px'
+
+// pt → px
+ptToPx(12);            // '16px' (デフォルトDPI: 72)
+ptToPx(12, 96);        // '12px'
+
+// px → pt
+pxToPt(16);            // '12pt' (デフォルトDPI: 72)
+pxToPt(16, 96);        // '16pt'
+```
+
+### 精度のカスタマイズ
+
+```javascript
+import { pxToRem } from 'sass-responsive-util-javascript';
+
+// デフォルトは小数点以下3桁
+pxToRem(14);                          // '0.875rem'
+
+// 精度を変更
+pxToRem(14, 16, { precision: 2 });    // '0.88rem'
+pxToRem(14, 16, { precision: 5 });    // '0.87500rem'
+```
+
+### Fluid Typography
+
+```javascript
+import { rClampPx, rClampRem } from 'sass-responsive-util-javascript';
+
+// px単位でのfluid typography
+rClampPx(14, 18, 375, 1440);
+// 出力: 'clamp(14px, calc(0.376vw + 12.592px), 18px)'
+
+// rem単位でのfluid typography
+rClampRem(0.875, 1.125, 375, 1440);
+// 出力: 'clamp(0.875rem, calc(0.376vw + 0.787rem), 1.125rem)'
+```
+
+### Raw値の取得（文字列ではなく数値）
+
+```javascript
+import { pxToRemRaw, ptToPxRaw } from 'sass-responsive-util-javascript';
+
+// 単位なしの数値を返す
+pxToRemRaw(32, 16);    // 2
+ptToPxRaw(12, 72);     // 16
+```
+
+## 📚 API リファレンス
+
+### 単位変換関数
+
+#### `pxToRem(px, baseFontSize?, options?)`
+
+px を rem に変換します。
+
+- **px**: `number | string` - 変換する値（例: `16`, `'16px'`）
+- **baseFontSize**: `number | string` - ベースフォントサイズ（デフォルト: `16`）
+- **options**: `object`
+  - **precision**: `number` - 小数点以下の桁数（デフォルト: `3`）
+- **戻り値**: `string` - rem単位の文字列（例: `'1rem'`）
+
+#### `remToPx(rem, baseFontSize?, options?)`
+
+rem を px に変換します。
+
+#### `ptToPx(pt, dpi?, options?)`
+
+pt を px に変換します。
+
+- **dpi**: `number | string` - DPI（デフォルト: `72`）
+
+#### `pxToPt(px, dpi?, options?)`
+
+px を pt に変換します。
+
+### Fluid Typography関数
+
+#### `rClampPx(minSize, maxSize, minViewport?, maxViewport?, options?)`
+
+px単位でCSS `clamp()` 関数を生成します。
+
+- **minSize**: `number | string` - 最小サイズ
+- **maxSize**: `number | string` - 最大サイズ
+- **minViewport**: `number | string` - 最小ビューポート幅（デフォルト: `375`）
+- **maxViewport**: `number | string` - 最大ビューポート幅（デフォルト: `1440`）
+- **options**: `object`
+  - **allowReverse**: `boolean` - 逆スケール（減少）を許可（デフォルト: `false`）
+  - **minViewportDiff**: `number` - 最小/最大ビューポートの最小差（デフォルト: `1`）
+  - **precision**: `number` - 小数点以下の桁数（デフォルト: `3`）
+- **戻り値**: `string` - CSS clamp関数（例: `'clamp(14px, calc(0.376vw + 12.592px), 18px)'`）
+
+#### `rClampRem(minSize, maxSize, minViewport?, maxViewport?, options?)`
+
+rem単位でCSS `clamp()` 関数を生成します。
+
+#### `rClampRaw(minSize, maxSize, minViewport?, maxViewport?, options?)`
+
+clampの計算値（min, max, slope, intercept）をオブジェクトで返します。
+
+### ユーティリティ関数
+
+#### `removeUnit(value)`
+
+文字列から単位を削除して数値を返します。
+
+```javascript
+import { removeUnit } from 'sass-responsive-util-javascript';
+
+removeUnit('16px');    // 16
+removeUnit('1.5rem');  // 1.5
+removeUnit(20);        // 20
+```
+
+## 🎨 使用例
+
+### レスポンシブなフォントサイズ
+
+```javascript
+import { rClampPx } from 'sass-responsive-util-javascript';
+
+// モバイル(375px)で14px、デスクトップ(1440px)で18pxに自動スケール
+const fontSize = rClampPx(14, 18, 375, 1440);
+
+// CSS-in-JSで使用
+const styles = {
+  fontSize: fontSize,  // 'clamp(14px, calc(0.376vw + 12.592px), 18px)'
+};
+```
+
+### Next.js / React での使用
+
+```jsx
+import { pxToRem, rClampRem } from 'sass-responsive-util-javascript';
+
+const MyComponent = () => {
+  return (
+    <div style={{
+      padding: pxToRem(24),           // '1.5rem'
+      fontSize: rClampRem(1, 1.5),    // fluid typography
+    }}>
+      Hello World
+    </div>
+  );
+};
+```
+
+## 🧪 テスト
+
+```bash
+npm test
+```
+
+## 📝 ライセンス
+
+ISC License - 詳細は[LICENSE](LICENSE)ファイルを参照してください。
+
+## 🤝 貢献
+
+Issue報告やPull Requestを歓迎します！
+
+## 📧 お問い合わせ
+
+バグ報告やご質問は[GitHub Issues](https://github.com/YOUR_USERNAME/sass-responsive-util-JavaScript/issues)までお願いします。
