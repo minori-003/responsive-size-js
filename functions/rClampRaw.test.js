@@ -13,9 +13,19 @@ describe('rClampRaw', () => {
     expect(intercept).toBeCloseTo(expectedIntercept);
   });
 
+  it('handles inputs with units correctly', () => {
+    const { slope, intercept } = rClampRaw('16px', '24px', '375px', '1440px');
+    const expectedSlope = (24 - 16) / (1440 - 375);
+    const expectedIntercept = 16 - expectedSlope * 375;
+
+    expect(slope).toBeCloseTo(expectedSlope);
+    expect(intercept).toBeCloseTo(expectedIntercept);
+  });
+
   it('returns negative slope when reverse scaling is allowed', () => {
     const result = rClampRaw(24, 16, 375, 1440, { allowReverse: true });
     expect(result.slope).toBeLessThan(0);
+    expect(Number.isFinite(result.intercept)).toBe(true);
   });
 
   it('throws when reverse scaling is not allowed', () => {

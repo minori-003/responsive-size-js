@@ -17,7 +17,7 @@ function rClampRaw(
     const minViewportNum = removeUnit(minViewport);
     const maxViewportNum = removeUnit(maxViewport);
 
-    if (minViewport >= maxViewport) {
+    if (minViewportNum >= maxViewportNum) {
         throw new RangeError('minViewport must be less than maxViewport');
     }
 
