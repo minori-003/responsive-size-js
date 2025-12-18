@@ -1,6 +1,7 @@
 // rClampRaw.js
 
 import { removeUnit } from '../utils/removeUnit.js';
+import { toRatio } from '../rates/toRatio.js';
 
 function rClampRaw(
     minSize,
@@ -33,7 +34,9 @@ function rClampRaw(
         throw new RangeError('throws when viewport diff is smaller than minViewportDiff');
     }
 
-    const slope = (maxSizeNum - minSizeNum) / (maxViewportNum - minViewportNum);
+    const slope = toRatio(maxSizeNum - minSizeNum, maxViewportNum - minViewportNum, {
+        errorMessage: 'maxViewport must be greater than minViewport'
+    });
     const intercept = minSizeNum - slope * minViewportNum;
 
     return {

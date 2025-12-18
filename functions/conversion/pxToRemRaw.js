@@ -1,6 +1,6 @@
 // pxToRemRaw.js
 
-import { removeUnit } from '../utils/removeUnit.js';
+import { toRatio } from '../rates/toRatio.js';
 
 /**
  * px を rem に変換し、数値として返す
@@ -8,15 +8,12 @@ import { removeUnit } from '../utils/removeUnit.js';
  * @param {number|string} baseFontSize
  * @returns {number}
  */
-function pxToRemRaw(px, baseFontSize){
-  const pxNum = removeUnit(px);
-  const baseFontSizeNum = removeUnit(baseFontSize)
+function pxToRemRaw(px, baseFontSize, options = {}){
+  const {
+    errorMessage = 'baseFontSize must be greater than 0'
+  } = options;
 
-  if(baseFontSizeNum <= 0){
-    throw new RangeError('baseFontSize must be greater than 0');
-  }
-
-  const remValueRaw = pxNum / baseFontSizeNum;
+  const remValueRaw = toRatio(px, baseFontSize, { errorMessage });
 
   return remValueRaw;
 }
