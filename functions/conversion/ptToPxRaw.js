@@ -1,11 +1,11 @@
 // ptToPxRaw.js
 
 import { removeUnit } from '../utils/removeUnit.js';
-import { ptToPxRate } from '../rates/ptToPxRate.js';
+import { conversionDpiRate } from '../rates/conversionDpiRate.js';
 
-function ptToPxRaw(pt, dpi){
+function ptToPxRaw(pt, conversionTargetDpi, conversionSourceDpi){
     const ptNum = removeUnit(pt);
-    const rate = ptToPxRate(dpi);
+    const rate = conversionDpiRate(conversionTargetDpi, conversionSourceDpi);
     return ptNum * rate;
 }
 
