@@ -1,6 +1,6 @@
 // rClampRaw.test.js
 import { describe, it, expect } from 'vitest';
-import { rClampRaw } from './responsive/rClampRaw.js';
+import { rClampRaw } from '../../functions/responsive/rClampRaw.js';
 
 describe('rClampRaw', () => {
   it('calculates correct slope and intercept', () => {

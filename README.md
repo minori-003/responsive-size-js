@@ -1,8 +1,8 @@
-# sass-responsive-util-JavaScript
+# responsive-size-js
 
 <parameter name="Leスポンシブデザインのための単位変換とFluid Typographyユーティリティライブラリ
 
-[![npm version](https://img.shields.io/npm/v/sass-responsive-util-javascript.svg)](https://www.npmjs.com/package/sass-responsive-util-javascript)
+[![npm version](https://img.shields.io/npm/v/responsive-size-js.svg)](https://www.npmjs.com/package/responsive-size-js)
 [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
 
 モダンなWebデザインに必要な単位変換（px/rem/pt）とFluid Typography（CSS `clamp()`生成）を提供するJavaScript/TypeScriptライブラリです。
@@ -19,76 +19,78 @@
 ## 📦 インストール
 
 ```bash
-npm install sass-responsive-util-javascript
+npm install responsive-size-js
 ```
 
 または
 
 ```bash
-yarn add sass-responsive-util-javascript
+pnpm add responsive-size-js
 ```
 
-## 🚀 使い方
+## 🚀 Basic Usage
 
-### 基本的な単位変換
+### CSS string utilities
+
+These functions return CSS-ready strings and are intended for direct use in styles.
 
 ```javascript
-import { pxToRem, remToPx, ptToPx, pxToPt } from 'sass-responsive-util-javascript';
+import { pxToRem, rClamp } from 'responsive-size-js';
 
-// px → rem
-pxToRem(16);           // '1rem' (デフォルトbase: 16px)
-pxToRem(32, 16);       // '2rem'
-pxToRem(24, 10);       // '2.4rem'
+pxToRem(16);
+// => "1rem"
 
-// rem → px
-remToPx(1);            // '16px' (デフォルトbase: 16px)
-remToPx(2, 20);        // '40px'
-
-// pt → px
-ptToPx(12);            // '16px' (デフォルトDPI: 72)
-ptToPx(12, 96);        // '12px'
-
-// px → pt
-pxToPt(16);            // '12pt' (デフォルトDPI: 72)
-pxToPt(16, 96);        // '16pt'
+rClamp(16, 24, 375, 1440);
+// => "clamp(...)"
 ```
 
-### 精度のカスタマイズ
+### Raw utilities
+
+Raw functions return numbers only and perform pure calculations.
+They are useful for JavaScript logic or custom formatting.
 
 ```javascript
-import { pxToRem } from 'sass-responsive-util-javascript';
+import { pxToRemRaw, rClampRaw } from 'responsive-size-js';
 
-// デフォルトは小数点以下3桁
-pxToRem(14);                          // '0.875rem'
+pxToRemRaw(16);
+// => 1
 
-// 精度を変更
-pxToRem(14, 16, { precision: 2 });    // '0.88rem'
-pxToRem(14, 16, { precision: 5 });    // '0.87500rem'
+rClampRaw(16, 24, 375, 1440);
+// => number
 ```
 
-### Fluid Typography
+## Other Utilities
+
+This library also provides unit conversion utilities between px and pt.
 
 ```javascript
-import { rClampPx, rClampRem } from 'sass-responsive-util-javascript';
+import { pxToPt, ptToPx } from 'responsive-size-js';
 
-// px単位でのfluid typography
-rClampPx(14, 18, 375, 1440);
-// 出力: 'clamp(14px, calc(0.376vw + 12.592px), 18px)'
+pxToPt(16);
+// => "12pt"
 
-// rem単位でのfluid typography
-rClampRem(0.875, 1.125, 375, 1440);
-// 出力: 'clamp(0.875rem, calc(0.376vw + 0.787rem), 1.125rem)'
+ptToPx(12);
+// => "16px"
 ```
 
-### Raw値の取得（文字列ではなく数値）
+Raw versions are also available and return numeric values only.
 
-```javascript
-import { pxToRemRaw, ptToPxRaw } from 'sass-responsive-util-javascript';
+## Error Handling
 
-// 単位なしの数値を返す
-pxToRemRaw(32, 16);    // 2
-ptToPxRaw(12, 72);     // 16
-```
+Raw functions validate inputs strictly.
+If a calculation becomes mathematically invalid (for example, division by zero or non-finite values),
+they will throw an error instead of returning a broken result.
+
+Non-Raw functions propagate these errors and additionally validate formatting options
+such as precision.
+
+This design helps prevent invalid values from silently leaking into CSS.
+
+## Notes
+
+Internal utility functions are not exposed to keep the public API stable
+and allow future improvements without breaking changes.
+
 
 ## 📚 API リファレンス
 

@@ -1,6 +1,6 @@
 // pxToRem.test.js
 import { describe, it, expect } from 'vitest';
-import { pxToRem } from './conversion/pxToRem';
+import { pxToRem } from '../../functions/conversion/pxToRem';
 
 describe('pxToRem', () => {
     it('converts px number to rem string using default baseFontSize', () => {

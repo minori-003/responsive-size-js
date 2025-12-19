@@ -1,6 +1,6 @@
 // rClampPx.test.js
 import { describe, it, expect } from 'vitest';
-import { rClampPx } from './responsive/rClampPx.js';
+import { rClampPx } from '../../functions/responsive/rClampPx.js';
 
 describe('rClampPx', () => {
   it('returns clamp css string for normal scaling', () => {

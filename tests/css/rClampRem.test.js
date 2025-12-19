@@ -1,6 +1,6 @@
 // rClampRem.test.js
 import { describe, it, expect } from 'vitest';
-import { rClampRem } from './responsive/rClampRem.js';
+import { rClampRem } from '../../functions/responsive/rClampRem.js';
 
 describe('rClampRem', () => {
   it('returns clamp css string with rem units', () => {

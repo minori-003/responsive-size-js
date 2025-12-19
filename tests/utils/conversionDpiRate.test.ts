@@ -1,6 +1,6 @@
 
 import { describe, it, expect } from 'vitest';
-import { conversionDpiRate } from './rates/conversionDpiRate';
+import { conversionDpiRate } from '../../functions/rates/conversionDpiRate';
 
 describe('conversionDpiRate', () => {
     it('calculates dpi rate correctly', () => {

@@ -1,7 +1,7 @@
-// removeUnit.js
+// removeUnit.ts
 // 入力された値から、単位を除いた数値を返す
 
-function removeUnit(value) {
+export function removeUnit(value: number | string): number {
   if (typeof value === 'number') {
     return value;
   }
@@ -15,5 +15,3 @@ function removeUnit(value) {
 
   throw new TypeError('removeUnit: value must be a number or a unit value string');
 }
-
-export { removeUnit };
