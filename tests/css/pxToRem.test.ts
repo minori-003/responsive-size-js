@@ -1,26 +1,25 @@
-// pxToRem.js
+// pxToRem.test.js
+import { describe, it, expect } from 'vitest';
+import { pxToRem } from '../../src/css';
 
-import { variable } from '../../setting/index.js';
-import { pxToRemRaw } from './pxToRemRaw.js';
+describe('pxToRem', () => {
+    it('converts px number to rem string using default baseFontSize', () => {
+        expect(pxToRem(32)).toBe('2rem');
+    });
 
-/**
- * px を rem に変換し、文字列で返す
- * @param {number|string} px
- * @param {number|string} baseFontSize
- * @param {object} options
- * @param {number} options.precision
- * @returns {string}
- */
-function pxToRem(px, baseFontSize = variable.rootFontSize, options = {}){
-  const { precision = 3 } = options;
+    it('converts px number to rem string using custom baseFontSize', () => {
+        expect(pxToRem(20, 10)).toBe('2rem');
+    });
 
-  if (!Number.isInteger(precision) || precision < 0) {
-    throw new RangeError('precision must be a non-negative integer');
-  }
-  const remValue = pxToRemRaw(px, baseFontSize);
-  const roundedValue = Number(remValue.toFixed(precision));
-
-  return `${roundedValue}rem`;
-}
-
-export { pxToRem };
+    it('converts px string to rem string using default baseFontSize', () => {
+        expect(pxToRem('16px')).toBe('1rem');
+    });
+  
+    it('throws RangeError when baseFontSize is 0', () => {
+        expect(()=>{pxToRem(16, 0)}).toThrow(RangeError);
+    });
+  
+    it('throws RangeError when baseFontSize is negative', () => {
+        expect(()=>{pxToRem(16, -16)}).toThrow(RangeError);
+    });
+});

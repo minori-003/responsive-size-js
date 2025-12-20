@@ -1,6 +1,6 @@
 // pxToRem.ts
 
-import { DEFAULT_SETTINGS } from '../setting/index.js';
+import { DEFAULT_SETTINGS } from '../setting/';
 import { pxToRemRaw } from '../raw/pxToRemRaw';
 
 /**

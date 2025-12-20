@@ -1,7 +1,7 @@
-// remToPx.js
+// remToPx.ts
 
-import { variable } from '../../setting/index.js';
-import { remToPxRaw } from './remToPxRaw.js';
+import { DEFAULT_SETTINGS } from '../setting';
+import { remToPxRaw } from '../raw/remToPxRaw';
 
 /**
  * rem を px に変換し、文字列で返す
@@ -11,7 +11,11 @@ import { remToPxRaw } from './remToPxRaw.js';
  * @param {number} options.precision - 小数点以下の桁数（デフォルト: 3）
  * @returns {string}
  */
-function remToPx(rem, baseFontSize = variable.rootFontSize, options = {}){
+type remToPxOptions = {
+    precision?: number;
+};
+
+export function remToPx(rem: string | number, baseFontSize: string | number = DEFAULT_SETTINGS.rootFontSize, options: remToPxOptions = {}){
   const { precision = 3 } = options;
 
   if (!Number.isInteger(precision) || precision < 0) {
@@ -22,5 +26,3 @@ function remToPx(rem, baseFontSize = variable.rootFontSize, options = {}){
 
   return `${roundedValue}px`;
 }
-
-export { remToPx };

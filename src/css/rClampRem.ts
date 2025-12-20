@@ -1,20 +1,26 @@
-// rClampRem.js
+// rClampRem.ts
+import { rClampRaw } from '../raw';
+import { DEFAULT_SETTINGS } from '../setting';
+import { pxToRemRaw } from '../raw/pxToRemRaw';
 
-import { rClampRaw } from './rClampRaw.js';
-import { variable } from '../../setting/index.js';
-import { pxToRemRaw } from '../conversion/pxToRemRaw.js';
+type rClampRemOptions = {
+    allowReverse?: boolean;
+    minViewportDiff?: number;
+    baseFontSize?: string | number;
+    precision?: number;
+};
 
-function rClampRem(
-    minSize,
-    maxSize,
-    minViewport = variable.minViewportWidth,
-    maxViewport = variable.maxViewportWidth,
-    options = {}
+export function rClampRem(
+    minSize: string | number,
+    maxSize: string | number,
+    minViewport: string | number = DEFAULT_SETTINGS.minViewportWidth,
+    maxViewport: string | number = DEFAULT_SETTINGS.maxViewportWidth,
+    options: rClampRemOptions = {}
 ) {
     const {
         allowReverse = false,
         minViewportDiff = 1,
-        baseFontSize = variable.rootFontSize,
+        baseFontSize = DEFAULT_SETTINGS.rootFontSize,
         precision = 3,
     } = options;
 
@@ -51,5 +57,3 @@ function rClampRem(
 
     return `clamp(${round(clampMinRem)}rem, calc(${vwPart} ${interceptSign} ${round(absInterceptRem)}rem), ${round(clampMaxRem)}rem)`;
 }
-
-export { rClampRem };

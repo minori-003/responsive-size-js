@@ -1,12 +1,18 @@
-// pxToPt.js
-import { pxToPtRaw } from './pxToPtRaw.js';
-import { variable } from '../../setting/index.js';
+// pxToPt.ts
+import { pxToPtRaw } from '../raw';
+import { DEFAULT_SETTINGS } from '../setting';
 
-function pxToPt(px, options = {}){
+type pxToPtOptions = {
+    conversionTargetDpi?: string | number;
+    conversionSourceDpi?: string | number;
+    precision?: number;
+};
+
+export function pxToPt(px: string | number, options: pxToPtOptions = {}){
 
     const {
-        conversionTargetDpi = variable.dpi.legacy,
-        conversionSourceDpi = variable.dpi.web,
+        conversionTargetDpi = DEFAULT_SETTINGS.dpi.legacy,
+        conversionSourceDpi = DEFAULT_SETTINGS.dpi.web,
         precision = 3
     } = options;
 
@@ -19,5 +25,3 @@ function pxToPt(px, options = {}){
 
     return `${roundedPtValue}pt`;
 }
-
-export { pxToPt };

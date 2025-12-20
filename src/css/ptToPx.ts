@@ -1,5 +1,5 @@
 // ptToPx.ts
-import { ptToPxRaw } from './ptToPxRaw';
+import { ptToPxRaw } from '../raw';
 import { DEFAULT_SETTINGS } from '../setting';
 
 type ptToPxOptions = {
