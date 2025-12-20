@@ -5,3 +5,4 @@ export * from './rClampPx';
 export * from './rClampRem';
 export * from './ptToPx';
 export * from './pxToPt';
+export * from './pxToEm';

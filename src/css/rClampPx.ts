@@ -1,5 +1,5 @@
 // rClampPx.ts
-import { rClampRaw } from '../raw';
+import { rClampPxRaw } from '../raw';
 import { DEFAULT_SETTINGS } from '../setting';
 
 type rClampPxOptions = {
@@ -7,7 +7,8 @@ type rClampPxOptions = {
     minViewportDiff?: number;
     precision?: number;
 };
-function rClampPx(
+
+export function rClampPx(
     minSize: string | number,
     maxSize: string | number,
     minViewport: string | number = DEFAULT_SETTINGS.minViewportWidth,
@@ -23,7 +24,7 @@ function rClampPx(
     if (!Number.isInteger(precision) || precision < 0) {
         throw new RangeError('precision must be a non-negative integer');
     }
-    const { min, max, slope, intercept } = rClampRaw(
+    const { minPx, maxPx, vwCoef, intercept } = rClampPxRaw(
         minSize,
         maxSize,
         minViewport,
@@ -31,24 +32,15 @@ function rClampPx(
         { allowReverse, minViewportDiff }
     );
 
-
-    const round = (v) => Number(v.toFixed(precision));
-
-    const clampMin = Math.min(min, max);
-    const clampMax = Math.max(min, max);
-
-    const vwCoef = slope * 100;
+    const round = (v: number): number => Number(v.toFixed(precision));
     const absVwCoef = Math.abs(vwCoef);
     const vwPart =
-        slope < 0
+        vwCoef < 0
             ? `-${round(absVwCoef)}vw`
             : `${round(absVwCoef)}vw`;
 
     const interceptSign = intercept < 0 ? '-' : '+';
     const absIntercept = Math.abs(intercept);
 
-    return `clamp(${round(clampMin)}px, calc(${vwPart} ${interceptSign} ${round(absIntercept)}px), ${round(clampMax)}px)`;
-
+    return `clamp(${round(minPx)}px, calc(${vwPart} ${interceptSign} ${round(absIntercept)}px), ${round(maxPx)}px)`;
 }
-
-export { rClampPx };

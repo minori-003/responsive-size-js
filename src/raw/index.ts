@@ -3,4 +3,7 @@ export * from './remToPxRaw';
 export * from './pxToRemRaw';
 export * from './pxToPtRaw';
 export * from './ptToPxRaw';
-export * from './rClampRaw';
+export * from './rClampCore';
+export * from './pxToEmRaw';
+export * from './rClampPxRaw';
+export * from './rClampRemRaw';

@@ -1,11 +1,8 @@
-// rClampRaw.js
-
-// import { removeUnit } from '../utils/removeUnit.js';
-// import { toRatio } from '../rates/toRatio.js';
+// rClampCore.ts
 
 import {removeUnit, toRatio} from '../utils';
 
-function rClampRaw(
+export function rClampCore(
     minSize: string | number,
     maxSize: string | number,
     minViewport: string | number,
@@ -51,5 +48,3 @@ function rClampRaw(
         max: maxSizeNum,
     };
 }
-
-export { rClampRaw };
