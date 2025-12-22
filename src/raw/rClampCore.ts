@@ -43,8 +43,8 @@ export function rClampCore(
 
     return {
         min: minSizeNum,
+        max: maxSizeNum,
         slope,
         intercept,
-        max: maxSizeNum,
     };
 }

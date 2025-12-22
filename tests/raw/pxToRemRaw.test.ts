@@ -1,21 +1,18 @@
 // pxToRemRaw.js
+import { describe, it, expect } from 'vitest';
+import { pxToRemRaw } from '../../src/raw/pxToRemRaw';
+import { DEFAULT_SETTINGS } from '../../src/setting';
 
-import { toRatio } from '../rates/toRatio.js';
+describe('pxToRemRaw', () => {
 
-/**
- * px を rem に変換し、数値として返す
- * @param {number|string} px
- * @param {number|string} baseFontSize
- * @returns {number}
- */
-function pxToRemRaw(px, baseFontSize, options = {}){
-  const {
-    errorMessage = 'baseFontSize must be greater than 0'
-  } = options;
+  it('uses DEFAULT_SETTINGS.rootFontSize by default', () => {
+    expect(pxToRemRaw(16)).toBe(
+      16 / DEFAULT_SETTINGS.rootFontSize
+    );
+  });
 
-  const remValueRaw = toRatio(px, baseFontSize, { errorMessage });
+  it('delegates calculation to pxToEmRaw', () => {
+    expect(pxToRemRaw('16px', 16)).toBe(1);
+  });
 
-  return remValueRaw;
-}
-
-export { pxToRemRaw };
+});

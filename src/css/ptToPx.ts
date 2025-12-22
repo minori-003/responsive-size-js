@@ -1,18 +1,25 @@
 // ptToPx.ts
 import { ptToPxRaw } from '../raw';
-import { DEFAULT_SETTINGS } from '../setting';
 
 type ptToPxOptions = {
-    conversionTargetDpi?: string | number;
-    conversionSourceDpi?: string | number;
+    targetDpi?: string | number;
+    sourceDpi?: string | number;
+    /**
+     * Decimal places to round to. Defaults to 3.
+     * Trailing zeros will be removed.
+     */
     precision?: number;
 };
+
+/**
+ * Converts points to pixels string (e.g., "16px").
+ */
 
 export function ptToPx(pt: string | number, options: ptToPxOptions = {}){
 
     const {
-        conversionTargetDpi = DEFAULT_SETTINGS.dpi.web,
-        conversionSourceDpi = DEFAULT_SETTINGS.dpi.legacy,
+        targetDpi,
+        sourceDpi,
         precision = 3
     } = options;
 
@@ -20,7 +27,10 @@ export function ptToPx(pt: string | number, options: ptToPxOptions = {}){
         throw new RangeError('precision must be a non-negative integer');
     }
 
-    const pxValueRaw = ptToPxRaw(pt, conversionTargetDpi, conversionSourceDpi);
+    // undefinedを渡すと、raw関数側のデフォルト値が適用されます
+    const pxValueRaw = ptToPxRaw(pt, targetDpi, sourceDpi);
+
+    // 指定桁で四捨五入し、Number()で不要な末尾ゼロを除去
     const roundedPxValue = Number(pxValueRaw.toFixed(precision));
 
     return `${roundedPxValue}px`;

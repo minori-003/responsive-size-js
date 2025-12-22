@@ -1,6 +1,5 @@
 // rClampPx.ts
 import { rClampPxRaw } from '../raw';
-import { DEFAULT_SETTINGS } from '../setting';
 
 type rClampPxOptions = {
     allowReverse?: boolean;
@@ -11,8 +10,8 @@ type rClampPxOptions = {
 export function rClampPx(
     minSize: string | number,
     maxSize: string | number,
-    minViewport: string | number = DEFAULT_SETTINGS.minViewportWidth,
-    maxViewport: string | number = DEFAULT_SETTINGS.maxViewportWidth,
+    minViewport: string | number,
+    maxViewport: string | number,
     options: rClampPxOptions = {}
 ) {
     const {

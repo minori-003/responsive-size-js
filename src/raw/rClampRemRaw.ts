@@ -1,9 +1,9 @@
-// rClampRem.ts
+// rClampRemRaw.ts
 import { rClampCore } from '.';
 import { DEFAULT_SETTINGS } from '../setting';
 import { pxToRemRaw } from './pxToRemRaw';
 
-type rClampRemOptions = {
+type rClampRemRawOptions = {
     allowReverse?: boolean;
     minViewportDiff?: number;
     baseFontSize?: string | number;
@@ -14,7 +14,7 @@ export function rClampRemRaw(
     maxSize: string | number,
     minViewport: string | number = DEFAULT_SETTINGS.minViewportWidth,
     maxViewport: string | number = DEFAULT_SETTINGS.maxViewportWidth,
-    options: rClampRemOptions = {}
+    options: rClampRemRawOptions = {}
 ) {
     const {
         allowReverse = false,
@@ -39,8 +39,8 @@ export function rClampRemRaw(
 
     return {
         minRem: clampMinRem,
+        maxRem: clampMaxRem,
         vwCoef,
         interceptRem,
-        maxRem: clampMaxRem,
     };
 }
