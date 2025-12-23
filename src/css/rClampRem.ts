@@ -1,5 +1,6 @@
 // rClampRem.ts
 import { rClampRemRaw } from '../raw';
+import { DEFAULT_SETTINGS } from '../setting';
 
 type rClampRemOptions = {
     allowReverse?: boolean;
@@ -11,15 +12,15 @@ type rClampRemOptions = {
 export function rClampRem(
     minSize: string | number,
     maxSize: string | number,
-    minViewport: string | number,
-    maxViewport: string | number,
+    minViewport: string | number = DEFAULT_SETTINGS.minViewportWidth,
+    maxViewport: string | number = DEFAULT_SETTINGS.maxViewportWidth,
     options: rClampRemOptions = {}
 ) {
     const {
         allowReverse = false,
         minViewportDiff = 1,
         precision = 3,
-        baseFontSize,
+        baseFontSize = DEFAULT_SETTINGS.rootFontSize,
     } = options;
 
     if (!Number.isInteger(precision) || precision < 0) {

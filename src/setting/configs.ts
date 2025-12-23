@@ -1,5 +1,5 @@
 // configs.ts
-// 変数定義
+// デフォルト設定定義
 export const DEFAULT_SETTINGS ={
     rootFontSize:16,
     maxViewportWidth:1440,

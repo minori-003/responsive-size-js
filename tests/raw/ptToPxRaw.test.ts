@@ -4,14 +4,6 @@ import { describe, it, expect } from 'vitest';
 import { ptToPxRaw } from '../../src/raw/ptToPxRaw';
 
 describe('ptToPxRaw', () => {
-
-      describe('defaults', () => {
-    it('uses standard CSS conversion (72dpi to 96dpi) when arguments are omitted', () => {
-      // 引数を省略すると、1pt = 1.333px (96/72) になるはず
-      expect(ptToPxRaw(1)).toBeCloseTo(1.3333);
-      expect(ptToPxRaw(72)).toBe(96);
-    });
-  });
   describe('valid cases', () => {
     it('converts pt to px using target/source dpi ratio', () => {
       // 72pt (72dpi) -> 96px (96dpi) : 標準的なDPI変換

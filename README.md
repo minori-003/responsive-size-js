@@ -52,7 +52,7 @@ They are useful for JavaScript logic or custom formatting.
 ```javascript
 import { pxToRemRaw, rClampRaw } from 'responsive-size-js';
 
-pxToRemRaw(16);
+pxToRemRaw(16, 16);
 // => 1
 
 rClampRaw(16, 24, 375, 1440);
@@ -151,7 +151,7 @@ clampの計算値（min, max, slope, intercept）をオブジェクトで返し�
 文字列から単位を削除して数値を返します。
 
 ```javascript
-import { removeUnit } from 'sass-responsive-util-javascript';
+import { removeUnit } from 'responsive-size-js';
 
 removeUnit('16px');    // 16
 removeUnit('1.5rem');  // 1.5
@@ -163,7 +163,7 @@ removeUnit(20);        // 20
 ### レスポンシブなフォントサイズ
 
 ```javascript
-import { rClampPx } from 'sass-responsive-util-javascript';
+import { rClampPx } from 'responsive-size-js';
 
 // モバイル(375px)で14px、デスクトップ(1440px)で18pxに自動スケール
 const fontSize = rClampPx(14, 18, 375, 1440);
@@ -177,7 +177,7 @@ const styles = {
 ### Next.js / React での使用
 
 ```jsx
-import { pxToRem, rClampRem } from 'sass-responsive-util-javascript';
+import { pxToRem, rClampRem } from 'responsive-size-js';
 
 const MyComponent = () => {
   return (
@@ -207,4 +207,4 @@ Issue報告やPull Requestを歓迎します！
 
 ## 📧 お問い合わせ
 
-バグ報告やご質問は[GitHub Issues](https://github.com/YOUR_USERNAME/sass-responsive-util-JavaScript/issues)までお願いします。
+バグ報告やご質問は[GitHub Issues](https://github.com/YOUR_USERNAME/responsive-size-js/issues)までお願いします。

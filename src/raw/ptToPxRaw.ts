@@ -1,20 +1,19 @@
 // ptToPxRaw.ts
 
 import{removeUnit, conversionDpiRate} from '../utils';
-import { DEFAULT_SETTINGS } from '../setting';
 
 /**
  * Converts points (pt) to pixels (px).
  * 
  * @param pt - The value in points.
- * @param targetDpi - The DPI of the output unit (default: 96 for Web/CSS px).
- * @param sourceDpi - The DPI of the input unit (default: 72 for standard pt).
+ * @param targetDpi - The DPI of the output unit.
+ * @param sourceDpi - The DPI of the input unit.
  */
 
 export function ptToPxRaw(
   pt: string | number,
-  targetDpi: string | number = DEFAULT_SETTINGS.dpi.web,
-  sourceDpi: string | number = DEFAULT_SETTINGS.dpi.legacy
+  targetDpi: string | number,
+  sourceDpi: string | number
 ): number {
   const ptNum = removeUnit(pt);
 

@@ -15,7 +15,7 @@ type pxToEmOptions = {
   precision?: number;
 };
 
-export function pxToEm(px: string | number, baseFontSize?: string | number, options:pxToEmOptions = {}){
+export function pxToEm(px: string | number, baseFontSize: string | number, options:pxToEmOptions = {}){
   const { precision = 3 } = options;
 
   if (!Number.isInteger(precision) || precision < 0) {

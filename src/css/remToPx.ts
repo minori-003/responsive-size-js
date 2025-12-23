@@ -1,21 +1,23 @@
 // remToPx.ts
 
-import { DEFAULT_SETTINGS } from '../setting';
 import { remToPxRaw } from '../raw/remToPxRaw';
+import { DEFAULT_SETTINGS } from '../setting';
 
 /**
  * rem を px に変換し、文字列で返す
  * @param {number|string} rem
  * @param {number|string} baseFontSize
- * @param {object} options
+ * @param {RemToPxOptions} options
  * @param {number} options.precision - 小数点以下の桁数（デフォルト: 3）
  * @returns {string}
  */
-type remToPxOptions = {
+type RemToPxOptions = {
     precision?: number;
 };
 
-export function remToPx(rem: string | number, baseFontSize: string | number = DEFAULT_SETTINGS.rootFontSize, options: remToPxOptions = {}){
+export function remToPx(rem: string | number,
+  baseFontSize: string | number = DEFAULT_SETTINGS.rootFontSize,
+  options: RemToPxOptions = {}){
   const { precision = 3 } = options;
 
   if (!Number.isInteger(precision) || precision < 0) {

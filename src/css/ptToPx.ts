@@ -1,7 +1,8 @@
 // ptToPx.ts
 import { ptToPxRaw } from '../raw';
+import { DEFAULT_SETTINGS } from '../setting';
 
-type ptToPxOptions = {
+type PtToPxOptions = {
     targetDpi?: string | number;
     sourceDpi?: string | number;
     /**
@@ -15,11 +16,11 @@ type ptToPxOptions = {
  * Converts points to pixels string (e.g., "16px").
  */
 
-export function ptToPx(pt: string | number, options: ptToPxOptions = {}){
+export function ptToPx(pt: string | number, options: PtToPxOptions = {}){
 
     const {
-        targetDpi,
-        sourceDpi,
+        targetDpi = DEFAULT_SETTINGS.dpi.web,
+        sourceDpi = DEFAULT_SETTINGS.dpi.legacy,
         precision = 3
     } = options;
 
@@ -27,7 +28,7 @@ export function ptToPx(pt: string | number, options: ptToPxOptions = {}){
         throw new RangeError('precision must be a non-negative integer');
     }
 
-    // undefinedを渡すと、raw関数側のデフォルト値が適用されます
+    // undefinedを渡すとデフォルト値が適用されます
     const pxValueRaw = ptToPxRaw(pt, targetDpi, sourceDpi);
 
     // 指定桁で四捨五入し、Number()で不要な末尾ゼロを除去

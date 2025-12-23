@@ -1,6 +1,5 @@
 // pxToRemRaw.ts
 
-import { DEFAULT_SETTINGS } from '../setting';
 import { pxToEmRaw } from './pxToEmRaw';
 
 /**
@@ -14,7 +13,7 @@ type pxToRemRawOptions = {
   errorMessage?: string;
 };
 
-export function pxToRemRaw(px: string | number, baseFontSize: string | number = DEFAULT_SETTINGS.rootFontSize, options: pxToRemRawOptions = {}){
+export function pxToRemRaw(px: string | number, baseFontSize: string | number, options: pxToRemRawOptions = {}){
   const {
     errorMessage = 'baseFontSize must be greater than 0'
   } = options;

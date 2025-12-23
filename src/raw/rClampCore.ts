@@ -8,11 +8,14 @@ export function rClampCore(
     minViewport: string | number,
     maxViewport: string | number,
     options: {
-        allowReverse?: boolean;
-        minViewportDiff?: number;
-    } = {}
+        allowReverse: boolean;
+        minViewportDiff: number;
+    }
 )   {
-    const { allowReverse = false, minViewportDiff = 1 } = options;
+    const {
+        allowReverse,
+        minViewportDiff,
+    } = options;
 
 
     const minSizeNum = removeUnit(minSize);
@@ -36,9 +39,7 @@ export function rClampCore(
         throw new RangeError('throws when viewport diff is smaller than minViewportDiff');
     }
 
-    const slope = toRatio(maxSizeNum - minSizeNum, maxViewportNum - minViewportNum, {
-        errorMessage: 'maxViewport must be greater than minViewport'
-    });
+    const slope = toRatio(maxSizeNum - minSizeNum, maxViewportNum - minViewportNum);
     const intercept = minSizeNum - slope * minViewportNum;
 
     return {

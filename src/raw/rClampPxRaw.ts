@@ -1,22 +1,21 @@
 // rClampPxRaw.ts
-import { rClampCore } from '.';
-import { DEFAULT_SETTINGS } from '../setting';
+import { rClampCore } from './rClampCore';
 
-type rClampPxRawOptions = {
-    allowReverse?: boolean;
-    minViewportDiff?: number;
+type RClampPxRawOptions = {
+    allowReverse: boolean;
+    minViewportDiff: number;
 };
 
 export function rClampPxRaw(
     minSize: string | number,
     maxSize: string | number,
-    minViewport: string | number = DEFAULT_SETTINGS.minViewportWidth,
-    maxViewport: string | number = DEFAULT_SETTINGS.maxViewportWidth,
-    options: rClampPxRawOptions = {}
+    minViewport: string | number,
+    maxViewport: string | number,
+    options: RClampPxRawOptions
 ) {
     const {
-        allowReverse = false,
-        minViewportDiff = 1,
+        allowReverse,
+        minViewportDiff,
     } = options;
     const { min, max, slope, intercept } = rClampCore(
     minSize,

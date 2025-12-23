@@ -27,7 +27,6 @@ type ToRatioOptions = {
   errorMessage?: string;
 };
 
-// 改善: 入力型を number | string に変更（removeUnitを活用するため）
 export function toRatio(
   numerator: number | string,
   denominator: number | string,

@@ -1,6 +1,7 @@
 // pxToRem.ts
 
 import { pxToRemRaw } from '../raw/';
+import { DEFAULT_SETTINGS } from '../setting';
 
 /**
  * px を rem に変換し、文字列で返す
@@ -15,7 +16,7 @@ type pxToRemOptions = {
   precision?: number;
 };
 
-export function pxToRem(px: string | number, baseFontSize?: string | number, options:pxToRemOptions = {}){
+export function pxToRem(px: string | number, baseFontSize: string | number = DEFAULT_SETTINGS.rootFontSize, options:pxToRemOptions = {}){
   const { precision = 3 } = options;
 
   if (!Number.isInteger(precision) || precision < 0) {
