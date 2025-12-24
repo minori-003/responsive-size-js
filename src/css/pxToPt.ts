@@ -1,5 +1,5 @@
 // pxToPt.ts
-import { pxToPtRaw } from '../raw';
+import { pxToPtRaw } from '../raw/pxToPtRaw';
 import { DEFAULT_SETTINGS } from '../setting';
 
 type PxToPtOptions = {

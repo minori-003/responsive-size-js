@@ -1,5 +1,5 @@
 // rClampPx.ts
-import { rClampPxRaw } from '../raw';
+import { rClampPxRaw } from '../raw/rClampPxRaw';
 import { DEFAULT_SETTINGS } from '../setting';
 
 type rClampPxOptions = {

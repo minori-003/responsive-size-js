@@ -1,5 +1,6 @@
 // src/index.ts
-export * from './setting';
-export * from './raw';
+// メイン API
 export * from './css';
 
+// 設定
+export * from './setting';

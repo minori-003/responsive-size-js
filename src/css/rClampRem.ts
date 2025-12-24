@@ -1,5 +1,5 @@
 // rClampRem.ts
-import { rClampRemRaw } from '../raw';
+import { rClampRemRaw } from '../raw/rClampRemRaw';
 import { DEFAULT_SETTINGS } from '../setting';
 
 type rClampRemOptions = {

@@ -1,210 +1,188 @@
 # responsive-size-js
 
-<parameter name="Leスポンシブデザインのための単位変換とFluid Typographyユーティリティライブラリ
+CSS で使えるレスポンシブなサイズ計算を、  
+JavaScript 関数として提供するユーティリティライブラリです。
 
-[![npm version](https://img.shields.io/npm/v/responsive-size-js.svg)](https://www.npmjs.com/package/responsive-size-js)
-[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
+px ベースで考えた値を、そのまま `clamp()` や `rem` / `em` に変換できます。
 
-モダンなWebデザインに必要な単位変換（px/rem/pt）とFluid Typography（CSS `clamp()`生成）を提供するJavaScript/TypeScriptライブラリです。
+---
 
-## ✨ 特徴
+## 特徴
 
-- 🎯 **単位変換**: px ⇔ rem ⇔ pt の相互変換
-- 📐 **Fluid Typography**: レスポンシブなCSS `clamp()` 生成
-- 🌲 **Tree-shakable**: ES Modules対応で必要な関数だけをインポート
-- 🧪 **テスト済み**: 21個のテストで品質を保証
-- 📦 **軽量**: 依存関係なし、シンプルな実装
-- 🔧 **TypeScript対応**: 型定義ファイル付き（予定）
+- CSS でそのまま使える文字列を返す API
+- `clamp()` を使ったレスポンシブサイズを簡単に生成
+- px 基準の思考のまま rem / em / vw に変換可能
+- 数値計算と CSS 出力を分離した設計
 
-## 📦 インストール
+
+## インストール
 
 ```bash
 npm install responsive-size-js
 ```
 
-または
+## クイックスタート
 
-```bash
-pnpm add responsive-size-js
-```
+### Responsive clamp (px)
 
-## 🚀 Basic Usage
-
-### CSS string utilities
-
-These functions return CSS-ready strings and are intended for direct use in styles.
-
-```javascript
-import { pxToRem, rClamp } from 'responsive-size-js';
-
-pxToRem(16);
-// => "1rem"
-
-rClamp(16, 24, 375, 1440);
-// => "clamp(...)"
-```
-
-### Raw utilities
-
-Raw functions return numbers only and perform pure calculations.
-They are useful for JavaScript logic or custom formatting.
-
-```javascript
-import { pxToRemRaw, rClampRaw } from 'responsive-size-js';
-
-pxToRemRaw(16, 16);
-// => 1
-
-rClampRaw(16, 24, 375, 1440);
-// => number
-```
-
-## Other Utilities
-
-This library also provides unit conversion utilities between px and pt.
-
-```javascript
-import { pxToPt, ptToPx } from 'responsive-size-js';
-
-pxToPt(16);
-// => "12pt"
-
-ptToPx(12);
-// => "16px"
-```
-
-Raw versions are also available and return numeric values only.
-
-## Error Handling
-
-Raw functions validate inputs strictly.
-If a calculation becomes mathematically invalid (for example, division by zero or non-finite values),
-they will throw an error instead of returning a broken result.
-
-Non-Raw functions propagate these errors and additionally validate formatting options
-such as precision.
-
-This design helps prevent invalid values from silently leaking into CSS.
-
-## Notes
-
-Internal utility functions are not exposed to keep the public API stable
-and allow future improvements without breaking changes.
-
-
-## 📚 API リファレンス
-
-### 単位変換関数
-
-#### `pxToRem(px, baseFontSize?, options?)`
-
-px を rem に変換します。
-
-- **px**: `number | string` - 変換する値（例: `16`, `'16px'`）
-- **baseFontSize**: `number | string` - ベースフォントサイズ（デフォルト: `16`）
-- **options**: `object`
-  - **precision**: `number` - 小数点以下の桁数（デフォルト: `3`）
-- **戻り値**: `string` - rem単位の文字列（例: `'1rem'`）
-
-#### `remToPx(rem, baseFontSize?, options?)`
-
-rem を px に変換します。
-
-#### `ptToPx(pt, dpi?, options?)`
-
-pt を px に変換します。
-
-- **dpi**: `number | string` - DPI（デフォルト: `72`）
-
-#### `pxToPt(px, dpi?, options?)`
-
-px を pt に変換します。
-
-### Fluid Typography関数
-
-#### `rClampPx(minSize, maxSize, minViewport?, maxViewport?, options?)`
-
-px単位でCSS `clamp()` 関数を生成します。
-
-- **minSize**: `number | string` - 最小サイズ
-- **maxSize**: `number | string` - 最大サイズ
-- **minViewport**: `number | string` - 最小ビューポート幅（デフォルト: `375`）
-- **maxViewport**: `number | string` - 最大ビューポート幅（デフォルト: `1440`）
-- **options**: `object`
-  - **allowReverse**: `boolean` - 逆スケール（減少）を許可（デフォルト: `false`）
-  - **minViewportDiff**: `number` - 最小/最大ビューポートの最小差（デフォルト: `1`）
-  - **precision**: `number` - 小数点以下の桁数（デフォルト: `3`）
-- **戻り値**: `string` - CSS clamp関数（例: `'clamp(14px, calc(0.376vw + 12.592px), 18px)'`）
-
-#### `rClampRem(minSize, maxSize, minViewport?, maxViewport?, options?)`
-
-rem単位でCSS `clamp()` 関数を生成します。
-
-#### `rClampRaw(minSize, maxSize, minViewport?, maxViewport?, options?)`
-
-clampの計算値（min, max, slope, intercept）をオブジェクトで返します。
-
-### ユーティリティ関数
-
-#### `removeUnit(value)`
-
-文字列から単位を削除して数値を返します。
-
-```javascript
-import { removeUnit } from 'responsive-size-js';
-
-removeUnit('16px');    // 16
-removeUnit('1.5rem');  // 1.5
-removeUnit(20);        // 20
-```
-
-## 🎨 使用例
-
-### レスポンシブなフォントサイズ
-
-```javascript
+```typescript
 import { rClampPx } from 'responsive-size-js';
 
-// モバイル(375px)で14px、デスクトップ(1440px)で18pxに自動スケール
-const fontSize = rClampPx(14, 18, 375, 1440);
+const padding = rClampPx(
+  16,
+  32,
+  375,
+  1440
+);
 
-// CSS-in-JSで使用
-const styles = {
-  fontSize: fontSize,  // 'clamp(14px, calc(0.376vw + 12.592px), 18px)'
-};
+// clamp(16px, calc(1.111vw + 11.833px), 32px)
 ```
 
-### Next.js / React での使用
+---
 
-```jsx
-import { pxToRem, rClampRem } from 'responsive-size-js';
+### Responsive clamp (rem)
 
-const MyComponent = () => {
-  return (
-    <div style={{
-      padding: pxToRem(24),           // '1.5rem'
-      fontSize: rClampRem(1, 1.5),    // fluid typography
-    }}>
-      Hello World
-    </div>
-  );
-};
+```typescript
+import { rClampRem } from 'responsive-size-js';
+
+const fontSize = rClampRem(
+  14,   // min size (px)
+  18,   // max size (px)
+  375,  // min viewport (px)
+  1440  // max viewport (px)
+);
+
+// clamp(0.875rem, calc(0.278vw + 0.2rem), 1.125rem)
+
 ```
 
-## 🧪 テスト
+---
 
-```bash
-npm test
+
+### Simple unit conversion
+
+```typescript
+import { pxToRem } from 'responsive-size-js';
+
+pxToRem(16);
+// '1rem'
+
 ```
 
-## 📝 ライセンス
+---
 
-ISC License - 詳細は[LICENSE](LICENSE)ファイルを参照してください。
+## 高度な使い方
 
-## 🤝 貢献
+### raw レイヤーを直接使う（上級者向け）
 
-Issue報告やPull Requestを歓迎します！
+**注意**
+1. この使用方法は自己責任でお願いします。通常は css レイヤーを使用することを推奨します。
+2. raw API は内部実装寄りの低レベル API です。将来のバージョンで仕様変更される可能性があります。
 
-## 📧 お問い合わせ
+CSS を出力せず、数値計算結果だけを利用したい場合は
+raw レイヤーを使用できます。
 
-バグ報告やご質問は[GitHub Issues](https://github.com/YOUR_USERNAME/responsive-size-js/issues)までお願いします。
+```typescript
+import { rClampCore } from 'responsive-size-js/raw';
+
+const { slope, intercept } = rClampCore(
+  14,
+  18,
+  375,
+  1440,
+  {
+    allowReverse: false,
+    minViewportDiff: 1,
+  });
+
+```
+
+---
+
+```typescript
+import { rClampRemRaw } from 'responsive-size-js/raw';
+
+const { minRem, maxRem, vwCoef, interceptRem } = rClampRemRaw(
+  14,
+  18,
+  375,
+  1440,
+  {
+    allowReverse: false,
+    minViewportDiff: 1,
+    baseFontSize: 16,
+  }
+);
+
+```
+
+rClampRemRaw は、px ベースの値を rem 文脈に正規化した上で
+clamp 計算を行う raw API です。
+baseFontSize は必須です。
+
+---
+raw API は単位を持たない純粋な数値計算を提供します。
+そのため、すべての前提条件を呼び出し側が明示的に指定する必要があります
+
+一部の Raw 関数は、数値計算だけでなく
+「どの単位文脈で扱われている値か」を示すラベルとしても機能します。
+
+---
+
+## オプションについて
+
+1.  rClampPx<br>
+    options:
+    - allowReverse: サイズの大小関係を反転させる
+    - precision: 小数点以下の桁数（デフォルト: 3）
+
+---
+
+2. rClampRem<br>
+    options:
+    - rClampPx のオプションと同じ
+    - baseFontSize: rem 計算に使用する基準フォントサイズ(デフォルト: 16)
+
+---
+
+3. raw レイヤーについて（注意書き）<br>
+    Raw API では、より低レベルな数値計算を行います。<br>
+    そのため、利便性のためのデフォルト値は提供されません。<br>
+    すべての前提条件を呼び出し側で明示的に指定してください。<br>
+    通常は css レイヤーの使用を推奨します。
+
+---
+
+
+
+## レイヤー構成について
+
+本パッケージは用途ごとにレイヤーを分けています。
+
+- **css**
+
+  CSS で直接使える文字列を返す公開 API
+
+- **raw**
+
+  単位付き値を前提とした数値計算を行い、
+  最終的に純粋な数値のみを返す低レベル API
+  内部処理の再利用や CSS 以外の用途向け
+
+raw レイヤーは、単位付き値を前提とした計算ロジックを提供し、
+最終的に**数値のみ**を返す低レベル API です。
+他のプログラムや独自のスタイル生成処理に組み込む用途を想定しています。
+
+通常の利用では css レイヤーの使用を推奨します。
+
+---
+
+## ライセンス
+
+MIT
+
+---
+
+## お問い合わせ
+
+Issue や Pull Request は歓迎します。
