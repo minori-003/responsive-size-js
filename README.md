@@ -1,18 +1,19 @@
 # responsive-size-js
 
-CSS で使えるレスポンシブなサイズ計算を、  
-JavaScript 関数として提供するユーティリティライブラリです。
+CSS で利用できるレスポンシブなサイズ計算を、
+JavaScript / TypeScript から安全に扱うためのユーティリティ集です。
 
-px ベースで考えた値を、そのまま `clamp()` や `rem` / `em` に変換できます。
+主に clamp() を用いた可変サイズ指定や、
+px / rem / em / pt などの単位変換を提供します。
 
 ---
 
 ## 特徴
 
 - CSS でそのまま使える文字列を返す API
-- `clamp()` を使ったレスポンシブサイズを簡単に生成
-- px 基準の思考のまま rem / em / vw に変換可能
-- 数値計算と CSS 出力を分離した設計
+- `clamp()` を使ったレスポンシブサイズ生成
+- px 基準の思考のまま rem / em / vw に変換
+- 計算ロジックと CSS 出力を分離した設計
 
 
 ## インストール
@@ -28,14 +29,8 @@ npm install responsive-size-js
 ```typescript
 import { rClampPx } from 'responsive-size-js';
 
-const padding = rClampPx(
-  16,
-  32,
-  375,
-  1440
-);
-
-// clamp(16px, calc(1.111vw + 11.833px), 32px)
+const fontSize = rClampPx(16, 24, 375, 1440);
+// clamp(16px, 1.23vw + 10.45px, 24px)
 ```
 
 ---
@@ -45,14 +40,10 @@ const padding = rClampPx(
 ```typescript
 import { rClampRem } from 'responsive-size-js';
 
-const fontSize = rClampRem(
-  14,   // min size (px)
-  18,   // max size (px)
-  375,  // min viewport (px)
-  1440  // max viewport (px)
-);
-
-// clamp(0.875rem, calc(0.278vw + 0.2rem), 1.125rem)
+const fontSize = rClampRem(16, 24, 375, 1440, {
+  baseFontSize: 16,
+});
+// clamp(1rem, 1.23vw + 0.65rem, 1.5rem)
 
 ```
 
@@ -62,124 +53,135 @@ const fontSize = rClampRem(
 ### Simple unit conversion
 
 ```typescript
-import { pxToRem } from 'responsive-size-js';
+import { pxToRem, remToPx } from 'responsive-size-js';
 
-pxToRem(16);
-// '1rem'
+pxToRem(16); // "1rem"
+remToPx(1);  // "16px"
 
 ```
 
+対応関数：
+
+- pxToRem / remToPx
+
+- pxToEm / emToPx
+
+- pxToPt / ptToPx
+
 ---
 
-## 高度な使い方
+## API
 
-### raw レイヤーを直接使う（上級者向け）
+### rClampPx
 
-**注意**
-1. この使用方法は自己責任でお願いします。通常は css レイヤーを使用することを推奨します。
-2. raw API は内部実装寄りの低レベル API です。将来のバージョンで仕様変更される可能性があります。
+px ベースの値から `clamp()` を生成します。
 
-CSS を出力せず、数値計算結果だけを利用したい場合は
-raw レイヤーを使用できます。
+options:
+- allowReverse: サイズの大小関係を反転（default: false）
+- precision: 小数点以下の桁数（default: 3）
+
+---
+
+### rClampRem
+
+px ベースの値を rem に正規化して `clamp()` を生成します。
+
+options:
+- rClampPx と同じ
+- baseFontSize: rem 計算の基準値（default: 16）
+
+---
+
+## Optionについて
+
+### allowReverse
+
+サイズが縮小方向になる指定を許可します。
 
 ```typescript
-import { rClampCore } from 'responsive-size-js/raw';
 
-const { slope, intercept } = rClampCore(
-  14,
-  18,
-  375,
-  1440,
-  {
-    allowReverse: false,
-    minViewportDiff: 1,
-  });
+rClampPx(24, 16, 375, 1440, { allowReverse: true });
 
 ```
 
+デフォルトでは minSize < maxSize を強制します。
+
 ---
+
+### precision
+
+出力値の小数点以下桁数を指定します
 
 ```typescript
-import { rClampRemRaw } from 'responsive-size-js/raw';
 
-const { minRem, maxRem, vwCoef, interceptRem } = rClampRemRaw(
-  14,
-  18,
-  375,
-  1440,
-  {
-    allowReverse: false,
-    minViewportDiff: 1,
-    baseFontSize: 16,
-  }
-);
+rClampPx(16, 24, 375, 1440, { precision: 2 });
+
 
 ```
 
-rClampRemRaw は、px ベースの値を rem 文脈に正規化した上で
-clamp 計算を行う raw API です。
-baseFontSize は必須です。
-
----
-raw API は単位を持たない純粋な数値計算を提供します。
-そのため、すべての前提条件を呼び出し側が明示的に指定する必要があります
-
-一部の Raw 関数は、数値計算だけでなく
-「どの単位文脈で扱われている値か」を示すラベルとしても機能します。
+デフォルトの設定は3です。
 
 ---
 
-## オプションについて
+### baseFontSize（rClampRem 系のみ）
 
-1.  rClampPx<br>
-    options:
-    - allowReverse: サイズの大小関係を反転させる
-    - precision: 小数点以下の桁数（デフォルト: 3）
+px → rem 変換時の基準フォントサイズです。
 
----
+```typescript
 
-2. rClampRem<br>
-    options:
-    - rClampPx のオプションと同じ
-    - baseFontSize: rem 計算に使用する基準フォントサイズ(デフォルト: 16)
+rClampRem(16, 24, 375, 1440, {
+  baseFontSize: 16,
+});
 
----
+```
 
-3. raw レイヤーについて（注意書き）<br>
-    Raw API では、より低レベルな数値計算を行います。<br>
-    そのため、利便性のためのデフォルト値は提供されません。<br>
-    すべての前提条件を呼び出し側で明示的に指定してください。<br>
-    通常は css レイヤーの使用を推奨します。
+デフォルトの設定は16です。
 
 ---
 
 
+## エラーについて
 
-## レイヤー構成について
+このライブラリは **不正な入力を黙って補正しません。**
 
-本パッケージは用途ごとにレイヤーを分けています。
+以下のような場合、Error を throw します。
 
-- **css**
+- 数値として解釈できない値
 
-  CSS で直接使える文字列を返す公開 API
+- Infinity / NaN
 
-- **raw**
+- viewport 差分が不正
 
-  単位付き値を前提とした数値計算を行い、
-  最終的に純粋な数値のみを返す低レベル API
-  内部処理の再利用や CSS 以外の用途向け
+- reverse 指定が許可されていない状態での逆転指定
 
-raw レイヤーは、単位付き値を前提とした計算ロジックを提供し、
-最終的に**数値のみ**を返す低レベル API です。
-他のプログラムや独自のスタイル生成処理に組み込む用途を想定しています。
+---
 
-通常の利用では css レイヤーの使用を推奨します。
+## Design Policy
+
+- 数値計算と CSS 表現を分離
+
+- 暗黙のデフォルトを極力排除
+
+- 破綻しにくい API を優先
+
+通常は**公開 API（css レイヤー）**の利用を推奨します。
 
 ---
 
 ## ライセンス
 
 MIT
+
+---
+
+## 補足（重要）
+
+- 内部には raw / utils レイヤー が存在しますが、<br>
+これは内部実装向けであり、公開 API ではありません。
+
+- README に記載された使用例はテストで検証されています。
+
+- 例外として、emの性質上pxToEmとemToPxはデフォルト値を持ちません
 
 ---
 

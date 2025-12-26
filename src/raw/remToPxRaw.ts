@@ -1,7 +1,6 @@
 // remToPxRaw.js
 
 import { removeUnit } from '../utils';
-import { DEFAULT_SETTINGS } from '../setting';
 import { emToPxRaw } from './emToPxRaw';
 
 /**
@@ -12,7 +11,7 @@ import { emToPxRaw } from './emToPxRaw';
  */
 export function remToPxRaw(
   rem: string | number,
-  baseFontSize: string | number = DEFAULT_SETTINGS.rootFontSize
+  baseFontSize: string | number
 ){
   const remNum = removeUnit(rem);
   const baseFontSizeNum = removeUnit(baseFontSize)

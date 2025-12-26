@@ -1,36 +1,7 @@
 // conversionDpiRate.test.ts
 
-// import { describe, it, expect } from 'vitest';
-// import { conversionDpiRate } from '../../functions/rates/conversionDpiRate';
-
-// describe('conversionDpiRate', () => {
-//     describe('valid cases', () => {
-//         it('should return the ratio of targetDpi to sourceDpi', () => {
-//         // 96dpi / 72dpi = 1.333...
-//         expect(conversionDpiRate(96, 72)).toBe(96 / 72);
-//         // 72dpi / 96dpi = 0.75
-//         expect(conversionDpiRate(72, 96)).toBe(0.75);
-//         // Same DPI should result in a rate of 1
-//         expect(conversionDpiRate(96, 96)).toBe(1);
-//     });
-//   });
-
-//     describe('invalid cases', () => {
-//         it('should throw an error if conversionTargetDpi is not a positive number', () => {
-//             // This is still handled by manual check in conversionDpiRate, not toRatio
-//             expect(() => conversionDpiRate(0, 96)).toThrow('conversionTargetDpi must be greater than 0');
-//             expect(() => conversionDpiRate(-10, 96)).toThrow('conversionTargetDpi must be greater than 0');
-//         });
-
-//         it('should throw an error if conversionSourceDpi is not a positive number', () => {
-//             expect(() => conversionDpiRate(96, 0)).toThrow('conversionSourceDpi must be greater than 0');
-//             expect(() => conversionDpiRate(96, -20)).toThrow('conversionSourceDpi must be greater than 0');
-//         });
-//     });
-// });
-
 import { describe, it, expect } from 'vitest';
-import { conversionDpiRate } from '../../functions/rates/conversionDpiRate';
+import { conversionDpiRate } from '../../src/utils/conversionDpiRate';
 
 describe('conversionDpiRate', () => {
   describe('valid cases', () => {

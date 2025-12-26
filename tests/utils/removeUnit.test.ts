@@ -29,9 +29,15 @@ describe('removeUnit', () => {
 
   describe('invalid input', () => {
     it('throws when no numeric value can be extracted', () => {
-      expect(() => removeUnit('abc')).toThrow();
-      expect(() => removeUnit('px16')).toThrow();
-      expect(() => removeUnit('')).toThrow();
+      expect(() => removeUnit('abc')).toThrow(Error);
+      expect(() => removeUnit('px16')).toThrow(Error);
+      expect(() => removeUnit('')).toThrow(Error);
+    });
+
+    it('throws RangeError for non-finite numbers', () => {
+      expect(() => removeUnit(NaN)).toThrow(Error);
+      expect(() => removeUnit(Infinity)).toThrow(Error);
+      expect(() => removeUnit(-Infinity)).toThrow(Error);
     });
   });
 

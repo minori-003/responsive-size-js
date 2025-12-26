@@ -91,6 +91,22 @@ describe('toRatio', () => {
       // removeUnitの実装に依存しますが、一般的に想定されるケース
       expect(toRatio('100px', '50px')).toBe(2);
     });
+
+    it('handles different unit strings consistently', () => {
+      expect(toRatio('100px', '50rem')).toBe(2);
+    });
+
+    it('supports negative numerator', () => {
+      expect(toRatio(-10, 2)).toBe(-5);
+    });
+
+    it('handles very small numbers', () => {
+      expect(toRatio(0.0001, 0.0002)).toBeCloseTo(0.5);
+    });
+
+    it('works without options argument', () => {
+      expect(toRatio(10, 5)).toBe(2);
+    });
   });
 
   describe('invalid numerator', () => {

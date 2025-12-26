@@ -15,11 +15,17 @@ export function ptToPxRaw(
   targetDpi: string | number,
   sourceDpi: string | number
 ): number {
-  const ptNum = removeUnit(pt);
+  
+  let ptNum: number;
+  try{
+    ptNum = removeUnit(pt);
+  }catch{
+    throw new Error('ptToPxRaw: val must be a finite number');
+  }
 
   // 値自体が無効な場合はエラーを投げる
   if (!Number.isFinite(ptNum)) {
-    throw new TypeError('ptToPxRaw: val must be a finite number');
+    throw new Error('ptToPxRaw: val must be a finite number');
   }
 
   // DPIの検証と比率計算は conversionDpiRate に任せる
