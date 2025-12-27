@@ -16,7 +16,10 @@ type PxToPtOptions = {
  * Converts pixels to points string (e.g., "12pt").
  */
 
-export function pxToPt(px: string | number, options: PxToPtOptions = {}){
+export function pxToPt(
+    px: string | number,
+    options: PxToPtOptions = {}
+    ): string {
 
     const {
         targetDpi = DEFAULT_SETTINGS.dpi.legacy,
@@ -28,7 +31,7 @@ export function pxToPt(px: string | number, options: PxToPtOptions = {}){
         throw new RangeError('precision must be a non-negative integer');
     }
 
-    // undefinedを渡すデフォルト値が適用されます
+    // undefinedを渡すとデフォルト値が適用されます
     const ptValueRaw = pxToPtRaw(px, targetDpi, sourceDpi);
     
     // 指定桁で四捨五入し、Number()で不要な末尾ゼロを除去

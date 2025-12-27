@@ -16,7 +16,10 @@ type PtToPxOptions = {
  * Converts points to pixels string (e.g., "16px").
  */
 
-export function ptToPx(pt: string | number, options: PtToPxOptions = {}){
+export function ptToPx(
+    pt: string | number,
+    options: PtToPxOptions = {}
+    ): string {
 
     const {
         targetDpi = DEFAULT_SETTINGS.dpi.web,

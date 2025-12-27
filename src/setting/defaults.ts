@@ -1,4 +1,4 @@
-// configs.ts
+// defaults.ts
 // デフォルト設定定義
 export const DEFAULT_SETTINGS ={
     rootFontSize:16,

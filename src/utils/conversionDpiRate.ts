@@ -23,14 +23,13 @@ export function conversionDpiRate(
     throw new Error('conversionSourceDpi must be greater than 0');
   }
 
-  // 改善点: NaN の場合も弾くように修正
-  // NaN <= 0 は false になるため、isFinite チェックが必要です
   if (!Number.isFinite(conversionTargetDpiNum) || conversionTargetDpiNum <= 0) {
     throw new Error('conversionTargetDpi must be greater than 0');
   }
 
-  return toRatio(conversionTargetDpiNum, conversionSourceDpiNum, {
-    // Source側のエラーメッセージをDPI用に上書き
-    errorMessage: 'conversionSourceDpi must be greater than 0'
-  });
+  if (!Number.isFinite(conversionSourceDpiNum) || conversionSourceDpiNum <= 0) {
+    throw new Error('conversionSourceDpi must be greater than 0');
+  }
+
+  return toRatio(conversionTargetDpiNum, conversionSourceDpiNum);
 }

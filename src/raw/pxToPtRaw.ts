@@ -16,13 +16,17 @@ export function pxToPtRaw(
   targetDpi: string | number,
   sourceDpi: string | number
 ): number {
-  // const pxNum = removeUnit(px);
+
   let pxNum: number;
 
-  // 値自体が無効な場合はエラーを投げる
   try{
     pxNum = removeUnit(px);
   }catch{
+    throw new Error('pxToPtRaw: val must be a finite number');
+  }
+
+  // 値自体が無効な場合はエラーを投げる
+  if (!Number.isFinite(pxNum)) {
     throw new Error('pxToPtRaw: val must be a finite number');
   }
 
