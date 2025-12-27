@@ -1,6 +1,7 @@
 // ptToPxRaw.ts
 
-import{removeUnit, conversionDpiRate} from '../utils';
+import{removeUnit} from '../utils/removeUnit';
+import{conversionDpiRate} from '../utils/conversionDpiRate';
 
 /**
  * Converts points (pt) to pixels (px).

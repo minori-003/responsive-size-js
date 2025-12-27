@@ -1,6 +1,7 @@
 // pxToEmRaw.ts
 
-import { toRatio, removeUnit } from '../utils';
+import { removeUnit } from '../utils/removeUnit';
+import { toRatio } from '../utils/toRatio';
 
 
 /**

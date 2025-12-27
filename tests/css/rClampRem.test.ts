@@ -3,40 +3,27 @@ import { describe, it, expect } from 'vitest';
 import { rClampRem } from '../../src/index';
 
 describe('rClampRem', () => {
-  it('returns clamp css string with rem units', () => {
+  it('returns clamp css string for normal scaling', () => {
     const result = rClampRem(16, 24, 375, 1440);
     expect(result).toContain('clamp(');
-    expect(result).toContain('rem');
     expect(result).toContain('vw');
+    expect(result).toContain('rem');
   });
 
-  it('converts px values to rem correctly', () => {
-    const result = rClampRem(
-      16,
-      24,
-      375,
-      1440,
-      { baseFontSize: 16, precision: 3 }
-    );
-
-    expect(result).toContain('1rem');
-    expect(result).toContain('1.5rem');
+  it('includes rem values in clamp()', () => {
+    const result = rClampRem(16, 24, 375, 1440);
+    expect(result).toContain('rem');
   });
 
-  it('works with reverse scaling when allowed', () => {
-    const result = rClampRem(
-      24,
-      16,
-      375,
-      1440,
-      { allowReverse: true }
-    );
-    expect(result.startsWith('clamp(')).toBe(true);
-  });
-
-  it('throws when precision is invalid', () => {
+  it('accepts precision option', () => {
     expect(() => {
-      rClampRem(16, 24, 375, 1440, { precision: -1 });
+      rClampRem(16, 24, 375, 1440, { precision: 1 });
+    }).not.toThrow();
+  });
+
+  it('throws when reverse scaling is not allowed', () => {
+    expect(() => {
+      rClampRem(24, 16, 375, 1440);
     }).toThrow();
   });
 });

@@ -1,26 +1,12 @@
 # responsive-size-js
 
 CSS で利用できるレスポンシブなサイズ計算を、
-JavaScript / TypeScript から安全に扱うためのユーティリティ集です。
+JavaScript / TypeScript から**安全に生成するためのユーティリティライブラリ**です。
 
-主に clamp() を用いた可変サイズ指定や、
-px / rem / em / pt などの単位変換を提供します。
+`clamp()` を用いた可変サイズ指定や、
+px / rem / em / pt などの単位変換を、CSS でそのまま使える文字列として提供します。
 
 ---
-
-## 特徴
-
-- CSS でそのまま使える文字列を返す API
-- `clamp()` を使ったレスポンシブサイズ生成
-- px 基準の思考のまま rem / em / vw に変換
-- 計算ロジックと CSS 出力を分離した設計
-
-
-## インストール
-
-```bash
-npm install responsive-size-js
-```
 
 ## クイックスタート
 
@@ -30,7 +16,8 @@ npm install responsive-size-js
 import { rClampPx } from 'responsive-size-js';
 
 const fontSize = rClampPx(16, 24, 375, 1440);
-// clamp(16px, 1.23vw + 10.45px, 24px)
+// → CSS で使用可能な clamp() 文字列を返します
+
 ```
 
 ---
@@ -43,7 +30,7 @@ import { rClampRem } from 'responsive-size-js';
 const fontSize = rClampRem(16, 24, 375, 1440, {
   baseFontSize: 16,
 });
-// clamp(1rem, 1.23vw + 0.65rem, 1.5rem)
+// → rem + vw を用いた clamp() 文字列を返します
 
 ```
 
@@ -70,25 +57,40 @@ remToPx(1);  // "16px"
 
 ---
 
+## 特徴
+
+- CSS でそのまま使える文字列を返す API
+- `clamp()` を使ったレスポンシブサイズ生成
+- px 基準の思考のまま rem / em / vw に変換
+- 計算ロジックと CSS 出力を分離した設計
+
+
+## インストール
+
+```bash
+npm install responsive-size-js
+```
+
 ## API
 
 ### rClampPx
 
-px ベースの値から `clamp()` を生成します。
+px ベースの値を元に、CSS で利用可能な `clamp()` 形式の文字列を返します。
 
 options:
-- allowReverse: サイズの大小関係を反転（default: false）
-- precision: 小数点以下の桁数（default: 3）
+- allowReverse
+- precision
 
 ---
 
 ### rClampRem
 
-px ベースの値を rem に正規化して `clamp()` を生成します。
+px ベースの値を rem に正規化し、CSS で利用可能な `clamp()` 形式の文字列を返します。
 
 options:
-- rClampPx と同じ
-- baseFontSize: rem 計算の基準値（default: 16）
+- allowReverse
+- precision
+- baseFontSize
 
 ---
 
@@ -110,7 +112,7 @@ rClampPx(24, 16, 375, 1440, { allowReverse: true });
 
 ### precision
 
-出力値の小数点以下桁数を指定します
+CSS 出力に含まれる数値表現の小数点以下桁数を指定します
 
 ```typescript
 
@@ -164,7 +166,34 @@ rClampRem(16, 24, 375, 1440, {
 
 - 破綻しにくい API を優先
 
-通常は**公開 API（css レイヤー）**の利用を推奨します。
+通常は**公開 API（css レイヤー）**の利用を推奨します<br>
+（raw / utils レイヤーは内部実装向けです）。
+
+---
+
+## Breaking Change Policy
+
+このライブラリでは、**公開 API（css レイヤー）**については、
+既存の使用例が突然壊れるような変更を原則として行いません。
+
+以下に該当する変更は **Breaking Change** と見なされます。
+
+- 同一の引数に対して、異なる意味・異なる結果を返す変更
+- デフォルト挙動の変更
+- 公開 API において、これまで通っていた入力がエラーになる変更
+
+これらを含む変更を行う場合は、
+**メジャーバージョンの更新**としてリリースします。
+
+一方、以下は Breaking Change とは見なしません。
+
+- 内部実装（raw / utils レイヤー）の変更
+- 新しいオプションの追加（既存挙動に影響しない場合）
+- 出力される数値表現の微調整（意味が変わらない範囲）
+
+README に記載された使用例はテストで検証されており、
+将来のバージョンでも継続して動作することを目指しています。
+
 
 ---
 

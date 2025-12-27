@@ -1,6 +1,6 @@
 // emToPxRaw.ts
 
-import { removeUnit } from '../utils';
+import { removeUnit } from '../utils/removeUnit';
 
 /**
  * em を px に変換し、数値として返す

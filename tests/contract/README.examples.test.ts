@@ -1,5 +1,6 @@
+// README.examples.test.ts
 import { describe, it, expect } from 'vitest';
-import { rClampPx, rClampRem } from '../../src';
+import { rClampPx, rClampRem } from '../../src/css';
 
 describe('README examples', () => {
   it('basic rClampPx example', () => {

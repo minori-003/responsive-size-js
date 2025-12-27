@@ -1,6 +1,6 @@
 // remToPxRaw.js
 
-import { removeUnit } from '../utils';
+import { removeUnit } from '../utils/removeUnit';
 import { emToPxRaw } from './emToPxRaw';
 
 /**
