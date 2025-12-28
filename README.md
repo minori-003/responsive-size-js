@@ -1,5 +1,11 @@
 # responsive-size-js
 
+[![npm version](https://badge.fury.io/js/responsive-size-js.svg)](https://badge.fury.io/js/responsive-size-js)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![Bundle Size](https://img.shields.io/bundlephobia/minzip/responsive-size-js)
+
+Responsive size calculation utilities for CSS. Provides safe generation of clamp(), unit conversion (px/rem/pt), and fluid typography helpers.
+
 CSS で利用できるレスポンシブなサイズ計算を、
 JavaScript / TypeScript から**安全に生成するためのユーティリティライブラリ**です。
 
@@ -256,7 +262,7 @@ README に記載された使用例はテストで検証されており、
 
 ## ライセンス
 
-MIT
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
 
 ---
 

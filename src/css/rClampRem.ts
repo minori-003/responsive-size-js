@@ -1,6 +1,6 @@
 // rClampRem.ts
-import { rClampRemRaw } from '../raw/rClampRemRaw';
-import { DEFAULT_SETTINGS } from '../setting';
+import { rClampRemRaw } from '../raw/rClampRemRaw.js';
+import { DEFAULT_SETTINGS } from '../setting/index.js';
 
 type rClampRemOptions = {
     allowReverse?: boolean;

@@ -3,7 +3,7 @@
 // 「正の有限な分母」を前提に比率を計算する。
 // 単位の意味解釈は行わない。
 
-import { removeUnit } from './removeUnit';
+import { removeUnit } from './removeUnit.js';
 
 type ToRatioOptions = {
   errorMessage?: string;

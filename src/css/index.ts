@@ -1,9 +1,9 @@
 // src/css/index.ts
-export * from './ptToPx';
-export * from './pxToPt';
-export * from './pxToEm';
-export * from './emToPx';
-export * from './pxToRem';
-export * from './remToPx';
-export * from './rClampPx';
-export * from './rClampRem';
+export * from './ptToPx.js';
+export * from './pxToPt.js';
+export * from './pxToEm.js';
+export * from './emToPx.js';
+export * from './pxToRem.js';
+export * from './remToPx.js';
+export * from './rClampPx.js';
+export * from './rClampRem.js';

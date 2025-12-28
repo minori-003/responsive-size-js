@@ -1,7 +1,7 @@
-// remToPxRaw.js
+// remToPxRaw.ts
 
-import { removeUnit } from '../utils/removeUnit';
-import { emToPxRaw } from './emToPxRaw';
+import { removeUnit } from '../utils/removeUnit.js';
+import { emToPxRaw } from './emToPxRaw.js';
 
 /**
  * rem を px に変換し、数値として返す

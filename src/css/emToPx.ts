@@ -1,6 +1,6 @@
 // emToPx.ts
 
-import { emToPxRaw } from '../raw/emToPxRaw';
+import { emToPxRaw } from '../raw/emToPxRaw.js';
 
 /**
  * em を px に変換し、文字列で返す

@@ -1,7 +1,7 @@
 // conversionDpiRate.ts
 
-import { removeUnit } from './removeUnit';
-import { toRatio } from './toRatio';
+import { removeUnit } from './removeUnit.js';
+import { toRatio } from './toRatio.js';
 
 export function conversionDpiRate(
   conversionTargetDpi: string | number,

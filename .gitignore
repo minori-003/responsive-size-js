@@ -68,3 +68,6 @@ Thumbs.db
 
 # Optional tsconfig
 tsconfig.json
+
+# Optional package files
+*.tgz

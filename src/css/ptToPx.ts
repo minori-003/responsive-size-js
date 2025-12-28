@@ -1,6 +1,6 @@
 // ptToPx.ts
-import { ptToPxRaw } from '../raw/ptToPxRaw';
-import { DEFAULT_SETTINGS } from '../setting';
+import { ptToPxRaw } from '../raw/ptToPxRaw.js';
+import { DEFAULT_SETTINGS } from '../setting/index.js';
 
 type PtToPxOptions = {
     targetDpi?: string | number;

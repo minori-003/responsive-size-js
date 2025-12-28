@@ -1,5 +1,5 @@
 // rClampPxRaw.ts
-import { rClampCore } from './rClampCore';
+import { rClampCore } from './rClampCore.js';
 
 type RClampPxRawOptions = {
     allowReverse: boolean;

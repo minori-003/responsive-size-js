@@ -1,6 +1,6 @@
 // rClampRemRaw.ts
-import { rClampCore } from './rClampCore';
-import { pxToRemRaw } from './pxToRemRaw';
+import { rClampCore } from './rClampCore.js';
+import { pxToRemRaw } from './pxToRemRaw.js';
 
 type RClampRemRawOptions = {
     allowReverse: boolean;

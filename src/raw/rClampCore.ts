@@ -1,7 +1,7 @@
 // rClampCore.ts
 
-import {removeUnit} from '../utils/removeUnit';
-import {toRatio} from '../utils/toRatio';
+import {removeUnit} from '../utils/removeUnit.js';
+import {toRatio} from '../utils/toRatio.js';
 
 export function rClampCore(
     minSize: string | number,

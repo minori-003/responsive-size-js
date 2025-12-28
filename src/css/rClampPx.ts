@@ -1,6 +1,6 @@
 // rClampPx.ts
-import { rClampPxRaw } from '../raw/rClampPxRaw';
-import { DEFAULT_SETTINGS } from '../setting';
+import { rClampPxRaw } from '../raw/rClampPxRaw.js';
+import { DEFAULT_SETTINGS } from '../setting/index.js';
 
 type rClampPxOptions = {
     allowReverse?: boolean;

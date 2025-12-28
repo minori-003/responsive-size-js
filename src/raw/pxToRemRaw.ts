@@ -1,6 +1,6 @@
 // pxToRemRaw.ts
 
-import { pxToEmRaw } from './pxToEmRaw';
+import { pxToEmRaw } from './pxToEmRaw.js';
 
 /**
  * px を rem に変換し、数値として返す

@@ -1,7 +1,7 @@
 // remToPx.ts
 
-import { remToPxRaw } from '../raw/remToPxRaw';
-import { DEFAULT_SETTINGS } from '../setting';
+import { remToPxRaw } from '../raw/remToPxRaw.js';
+import { DEFAULT_SETTINGS } from '../setting/index.js';
 
 /**
  * rem を px に変換し、文字列で返す
