@@ -14,7 +14,8 @@ type EmToPxOptions = {
     precision?: number;
 };
 
-export function emToPx(em: string | number,
+export function emToPx(
+  em: string | number,
   baseFontSize: string | number,
   options: EmToPxOptions = {}){
   const { precision = 3 } = options;

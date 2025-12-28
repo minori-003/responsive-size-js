@@ -1,4 +1,4 @@
-// backward-compatibility.test.ts
+// contract/backward-compatibility.test.ts
 
 import { describe, it, expect } from 'vitest';
 import {

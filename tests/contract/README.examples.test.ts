@@ -1,4 +1,4 @@
-// README.examples.test.ts
+// contract/README.examples.test.ts
 import { describe, it, expect } from 'vitest';
 import { rClampPx, rClampRem } from '../../src/css';
 

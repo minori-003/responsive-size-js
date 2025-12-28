@@ -6,6 +6,8 @@ JavaScript / TypeScript から**安全に生成するためのユーティリテ
 `clamp()` を用いた可変サイズ指定や、
 px / rem / em / pt などの単位変換を、CSS でそのまま使える文字列として提供します。
 
+本ライブラリの公開 API（css レイヤー）は、**必ず単位付きの CSS 文字列（string）を返します。数値は返しません。**
+
 ---
 
 ## クイックスタート
@@ -16,7 +18,7 @@ px / rem / em / pt などの単位変換を、CSS でそのまま使える文字
 import { rClampPx } from 'responsive-size-js';
 
 const fontSize = rClampPx(16, 24, 375, 1440);
-// → CSS で使用可能な clamp() 文字列を返します
+// → CSS で使用可能な clamp() 文字列(string)を返します
 
 ```
 
@@ -30,7 +32,7 @@ import { rClampRem } from 'responsive-size-js';
 const fontSize = rClampRem(16, 24, 375, 1440, {
   baseFontSize: 16,
 });
-// → rem + vw を用いた clamp() 文字列を返します
+// → rem + vw を用いた clamp() 文字列(string)を返します
 
 ```
 
@@ -79,7 +81,10 @@ px ベースの値を元に、CSS で利用可能な `clamp()` 形式の文字�
 
 options:
 - allowReverse
+
 - precision
+
+- minViewportDiff (Advanced)
 
 ---
 
@@ -88,9 +93,14 @@ options:
 px ベースの値を rem に正規化し、CSS で利用可能な `clamp()` 形式の文字列を返します。
 
 options:
+
 - allowReverse
+
 - precision
+
 - baseFontSize
+
+- minViewportDiff (Advanced)
 
 ---
 
@@ -99,6 +109,10 @@ options:
 これらのオプションは、対応する API に対してのみ有効です。
 
 ### allowReverse
+
+- Type: boolean
+- Default: false
+- Applies to: rClampPx, rClampRem
 
 サイズが縮小方向になる指定を許可します。
 
@@ -114,6 +128,10 @@ rClampPx(24, 16, 375, 1440, { allowReverse: true });
 
 ### precision
 
+- Type: number
+- Default: 3
+- Applies to: rClampPx, rClampRem
+
 CSS 出力に含まれる数値表現の小数点以下桁数を指定します
 
 ```typescript
@@ -122,8 +140,6 @@ rClampPx(16, 24, 375, 1440, { precision: 2 });
 
 
 ```
-
-デフォルトの設定は3です。
 
 ---
 
@@ -143,6 +159,41 @@ rClampRem(16, 24, 375, 1440, {
 
 ---
 
+## Advanced Options
+
+### minViewportDiff
+
+- Type: number
+
+- Default: 1
+
+- Applies to: rClampPx, rClampRem
+
+**Description**
+
+`minViewport` と `maxViewport` の差分に対する最小許容値を指定します。
+指定されたビューポート幅の差がこの値未満の場合、エラーがスローされます。
+
+これは、ビューポート範囲が極端に狭い場合に以下の問題が発生するのを防ぐための安全装置です。
+
+- vw 係数（傾き）が極端な値になる
+
+- 意図しない急激なスケーリングが発生する
+
+- 設計ミスを静かに通してしまう
+
+```typescript
+
+rClampPx(16, 24, 768, 769, {
+  minViewportDiff: 10, // throws (viewport diff < 10)
+});
+
+```
+
+通常はデフォルト値（1）のままで問題ありませんが、
+より厳密な設計制約を設けたい場合に調整できます。
+
+---
 
 ## エラーについて
 
@@ -158,6 +209,8 @@ rClampRem(16, 24, 375, 1440, {
 
 - reverse 指定が許可されていない状態での逆転指定
 
+- viewport 差分が不正（minViewportDiff 未満）
+
 ---
 
 ## Design Policy
@@ -170,6 +223,9 @@ rClampRem(16, 24, 375, 1440, {
 
 通常は**公開 API（css レイヤー）**の利用を推奨します<br>
 （raw / utils レイヤーは内部実装向けです）。
+
+rClamp 系 API が生成する clamp() 内の **具体的な数値（vw 係数や中間値）は保証されません。**<br>
+意味（レスポンシブに補間されること）と CSS としての有効性のみを保証します。
 
 ---
 
@@ -207,6 +263,7 @@ MIT
 ## 補足（重要）
 
 - 例外として、emの性質上pxToEmとemToPxはデフォルト値を持ちません
+- emはコンテキスト依存の単位であり、暗黙の基準値を持たせると誤用を助長するためです。
 
 ---
 
@@ -224,6 +281,7 @@ MIT
 
 これらは **現在のデフォルト挙動を説明するための値**であり、
 内部実装の定数や設定オブジェクトの公開を保証するものではありません。
+また、これらの値に依存したロジックは、公開 API の契約には含まれません。
 
 将来のバージョンで、内部実装や初期値が変更される可能性がありますが、
 公開 API の挙動については Breaking Change Policy に基づいて管理されます。

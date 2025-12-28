@@ -1,28 +1,26 @@
 {
-  "name": "sass-responsive-util-javascript",
+  "name": "responsive-size-js",
   "version": "1.0.0",
   "description": "レスポンシブデザインのための単位変換とFluid Typographyユーティリティライブラリ。px/rem/pt変換、CSS clamp()生成など、モダンなWebデザインに必要な機能を提供します。",
   "type": "module",
-  "main": "./functions/index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./functions/index.js",
-      "types": "./types/index.d.ts"
-    },
-    "./conversion": "./functions/conversion/*",
-    "./responsive": "./functions/responsive/*",
-    "./utils": "./functions/utils/*"
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
   },
   "files": [
-    "functions/",
-    "setting/",
-    "types/",
+    "dist/",
     "README.md",
     "LICENSE"
   ],
   "scripts": {
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "build": "tsc",
+    "prepublishOnly": "npm run build && npm test"
   },
   "keywords": [
     "responsive",
@@ -41,17 +39,18 @@
     "name": "Minori Koishi",
     "email": "",
     "url": "https://github.com/minori-003"
-    },
-  "license": "ISC",
+  },
+  "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/minori-003/responsive-util-js.git"
+    "url": "git+https://github.com/minori-003/responsive-size-js.git"
   },
-  "homepage": "https://github.com/minori-003/responsive-util-js",
+  "homepage": "https://github.com/minori-003/responsive-size-js",
   "bugs": {
-    "url": "https://github.com/minori-003/responsive-util-js/issues"
+    "url": "https://github.com/minori-003/responsive-size-js/issues"
   },
   "devDependencies": {
+    "typescript": "^5.9.3",
     "vitest": "^3.2.4"
   }
 }
