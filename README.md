@@ -4,9 +4,11 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![Bundle Size](https://img.shields.io/bundlephobia/minzip/responsive-size-js)
 
-Responsive size calculation utilities for CSS. Provides safe generation of clamp(), unit conversion (px/rem/pt), and fluid typography helpers.
+Responsive size calculation utilities for CSS.<br>
+Provides safe generation of CSS-ready strings such as clamp(), unit conversion (px/rem/em/pt), and fluid typography helpers.
 
-CSS で利用できるレスポンシブなサイズ計算を、
+
+CSS で利用できるレスポンシブなサイズ計算を、<br>
 JavaScript / TypeScript から**安全に生成するためのユーティリティライブラリ**です。
 
 `clamp()` を用いた可変サイズ指定や、
@@ -232,6 +234,25 @@ rClampPx(16, 24, 768, 769, {
 
 rClamp 系 API が生成する clamp() 内の **具体的な数値（vw 係数や中間値）は保証されません。**<br>
 意味（レスポンシブに補間されること）と CSS としての有効性のみを保証します。
+
+---
+
+## Credits
+
+本ライブラリは、しょーごさんによって考案・公開された  
+`rClamp`（SCSS関数）のアイデアに着想を得ています。
+
+本実装では、その基本的な考え方を踏まえつつ、
+TypeScript / JavaScript 向けに再設計し、
+
+- 型安全性の追加
+- 入力バリデーション
+- API 契約の明確化
+- テストとバージョニングポリシー
+
+などを行っています。
+
+参考記事：[clamp()を使ってフォントサイズはレスポンシブで自動調整せよ【ジェネレーターとSass関数の使いかたも】](https://shogo-log.com/clamp-usage/)
 
 ---
 

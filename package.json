@@ -1,7 +1,7 @@
 {
   "name": "responsive-size-js",
   "version": "1.0.0",
-  "description": "Responsive size calculation utilities for CSS. Provides safe generation of clamp(), unit conversion (px/rem/pt), and fluid typography helpers. レスポンシブデザインのための単位変換とFluid Typographyユーティリティライブラリ。px/rem/pt変換、CSS clamp()生成など、モダンなWebデザインに必要な機能を提供します。",
+  "description": "CSS utility library for responsive sizing. Generates CSS-ready strings for clamp(), unit conversion (px/rem/em/pt), and fluid typography.",
   "type": "module",
   "sideEffects": false,
   "main": "./dist/index.js",
