@@ -20,6 +20,8 @@ px / rem / em / pt などの単位変換を、CSS でそのまま使える文字
 
 ## クイックスタート
 
+This library is written in TypeScript and provides type definitions out of the box.
+
 ### Responsive clamp (px)
 
 ```typescript
@@ -116,7 +118,13 @@ options:
 
 これらのオプションは、対応する API に対してのみ有効です。
 
-### allowReverse
+※ options を指定する場合、minViewport / maxViewport を含む<br>
+すべての前段引数を明示的に指定する必要があります。
+
+
+### Common Options
+
+#### allowReverse
 
 - Type: boolean
 - Default: false
@@ -134,7 +142,7 @@ rClampPx(24, 16, 375, 1440, { allowReverse: true });
 
 ---
 
-### precision
+#### precision
 
 - Type: number
 - Default: 3
@@ -151,7 +159,13 @@ rClampPx(16, 24, 375, 1440, { precision: 2 });
 
 ---
 
-### baseFontSize（rClampRem 系のみ）
+### rClampRem Only
+
+#### baseFontSize
+
+- Type: number
+- Default: 16
+- Applies to: rClampRem
 
 px → rem 変換時の基準フォントサイズです。
 
@@ -213,11 +227,11 @@ rClampPx(16, 24, 768, 769, {
 
 - Infinity / NaN
 
-- viewport 差分が不正
+- viewport 差分が不正（minViewport >= maxViewport）
+
+- viewport 差分が minViewportDiff 未満
 
 - reverse 指定が許可されていない状態での逆転指定
-
-- viewport 差分が不正（minViewportDiff 未満）
 
 ---
 
@@ -229,11 +243,14 @@ rClampPx(16, 24, 768, 769, {
 
 - 破綻しにくい API を優先
 
-通常は**公開 API（css レイヤー）**の利用を推奨します<br>
+通常は**公開 API**（css レイヤー）の利用を推奨します<br>
 （raw / utils レイヤーは内部実装向けです）。
 
 rClamp 系 API が生成する clamp() 内の **具体的な数値（vw 係数や中間値）は保証されません。**<br>
 意味（レスポンシブに補間されること）と CSS としての有効性のみを保証します。
+
+Only the functions documented in this README are considered the **Public API**.<br>
+Internal modules (e.g., `raw` layer) or undocumented exports are not covered by the Breaking Change Policy.
 
 ---
 
@@ -258,7 +275,7 @@ TypeScript / JavaScript 向けに再設計し、
 
 ## Breaking Change Policy
 
-このライブラリでは、**公開 API（css レイヤー）**については、
+このライブラリでは、**公開 API**（css レイヤー）については、
 既存の使用例が突然壊れるような変更を原則として行いません。
 
 以下に該当する変更は **Breaking Change** と見なされます。
