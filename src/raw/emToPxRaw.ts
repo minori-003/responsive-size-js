@@ -10,7 +10,7 @@ import { removeUnit } from '../utils/removeUnit.js';
  */
 export function emToPxRaw(em: string | number, baseFontSize: string | number){
   const emNum = removeUnit(em);
-  const baseFontSizeNum = removeUnit(baseFontSize)
+  const baseFontSizeNum = removeUnit(baseFontSize);
 
   if(baseFontSizeNum <= 0){
     throw new RangeError('baseFontSize must be greater than 0');

@@ -14,7 +14,7 @@ export function remToPxRaw(
   baseFontSize: string | number
 ){
   const remNum = removeUnit(rem);
-  const baseFontSizeNum = removeUnit(baseFontSize)
+  const baseFontSizeNum = removeUnit(baseFontSize);
 
   if(baseFontSizeNum <= 0){
     throw new RangeError('baseFontSize must be greater than 0');
