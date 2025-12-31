@@ -1,6 +1,5 @@
 // src/raw/pxToVwRaw.ts
 
-import { removeUnit } from '../utils/removeUnit.js';
 import { toRatio } from '../utils/toRatio.js';
 
 type PxToVwRawOptions = {
@@ -12,7 +11,7 @@ export function pxToVwRaw(px: string | number, baseViewportWidth: string | numbe
     errorMessage = 'baseViewportWidth must be greater than 0'
   } = options;
 
-  const vwRatio = toRatio(removeUnit(px), removeUnit(baseViewportWidth), { errorMessage });
+  const vwRatio = toRatio(px, baseViewportWidth, { errorMessage });
 
   const vwValueRaw = vwRatio * 100;
 

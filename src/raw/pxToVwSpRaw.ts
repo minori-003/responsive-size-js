@@ -13,12 +13,9 @@ type PxToVwSpRawOptions = {
   errorMessage?: string;
 };
 
-export function pxToVwSpRaw(px: string | number, baseViewportWidth: string | number, options: PxToVwSpRawOptions = {}){
-  const {
-    errorMessage = 'baseViewportWidth must be greater than 0'
-  } = options;
+export function pxToVwSpRaw(px: string | number, baseViewportWidth: string | number, options?: PxToVwSpRawOptions){
 
-  const vwSpValueRaw = pxToVwRaw(px, baseViewportWidth, { errorMessage });
+  const vwSpValueRaw = pxToVwRaw(px, baseViewportWidth, options);
 
   return vwSpValueRaw;
 }

@@ -37,7 +37,10 @@ export function toRatio(
     throw new Error('toRatio: numerator must be a finite number');
   }
 
-  if (!Number.isFinite(denominatorNum) || denominatorNum <= 0) {
+  // if (!Number.isFinite(denominatorNum) || denominatorNum <= 0) {
+  //   throw new Error(errorMessage);
+  // }
+  if (denominatorNum <= 0) {
     throw new Error(errorMessage);
   }
 

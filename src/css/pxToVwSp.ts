@@ -14,6 +14,7 @@ import { DEFAULT_SETTINGS } from '../setting/index.js';
 
 type PxToVwSpOptions = {
   precision?: number;
+  errorMessage?: string;
 };
 
 export function pxToVwSp(
@@ -21,12 +22,14 @@ export function pxToVwSp(
   baseViewportWidth: string | number = DEFAULT_SETTINGS.minViewportWidth,
   options:PxToVwSpOptions = {}
 ){
-  const { precision = 3 } = options;
+  const { precision = 3,
+    errorMessage = 'baseViewportWidth must be greater than 0'
+  } = options;
 
   if (!Number.isInteger(precision) || precision < 0) {
     throw new RangeError('precision must be a non-negative integer');
   }
-  const vwSpValue = pxToVwSpRaw(px, baseViewportWidth);
+  const vwSpValue = pxToVwSpRaw(px, baseViewportWidth, { errorMessage });
   const roundedVwSpValue = Number(vwSpValue.toFixed(precision));
 
   return `${roundedVwSpValue}vw`;

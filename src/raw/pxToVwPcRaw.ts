@@ -13,12 +13,9 @@ type PxToVwPcRawOptions = {
   errorMessage?: string;
 };
 
-export function pxToVwPcRaw(px: string | number, baseViewportWidth: string | number, options: PxToVwPcRawOptions = {}){
-  const {
-    errorMessage = 'baseViewportWidth must be greater than 0'
-  } = options;
+export function pxToVwPcRaw(px: string | number, baseViewportWidth: string | number, options?: PxToVwPcRawOptions){
 
-  const vwPcValueRaw = pxToVwRaw(px, baseViewportWidth, { errorMessage });
+  const vwPcValueRaw = pxToVwRaw(px, baseViewportWidth, options);
 
   return vwPcValueRaw;
 }
