@@ -1,6 +1,5 @@
 // src/raw/pxToPercentRaw.ts
 
-import { removeUnit } from '../utils/removeUnit.js';
 import { toRatio } from '../utils/toRatio.js';
 
 /**
@@ -19,7 +18,7 @@ export function pxToPercentRaw(px: string | number, contextSize: string | number
     errorMessage = 'contextSize must be greater than 0'
   } = options;
 
-  const ratio = toRatio(removeUnit(px), removeUnit(contextSize), { errorMessage });
+  const ratio = toRatio(px, contextSize, { errorMessage });
 
   const valueRaw = ratio * 100;
 
