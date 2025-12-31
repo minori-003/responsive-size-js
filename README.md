@@ -52,20 +52,48 @@ const fontSize = rClampRem(16, 24, 375, 1440, {
 ### Simple unit conversion
 
 ```typescript
-import { pxToRem, remToPx } from 'responsive-size-js';
+import {
+  pxToRem,
+  remToPx,
+  pxToVw,
+  vwToPx,
+} from 'responsive-size-js';
 
 pxToRem(16); // "1rem"
 remToPx(1);  // "16px"
 
+// viewport size must be explicitly provided
+pxToVw(375, 375); // "100vw"
+vwToPx(100, 375); // "375px"
+
 ```
 
 対応関数：
+
+#### Absolute / font-relative units
 
 - pxToRem / remToPx
 
 - pxToEm / emToPx
 
 - pxToPt / ptToPx
+
+#### Viewport units (vw)
+
+- pxToVw / vwToPx
+
+- pxToVwPc / vwPcToPx
+
+- pxToVwSp / vwSpToPx
+
+※ Pc / Sp は計算上の違いではなく、
+設計上の「由来（PC / SP 基準）」を明示するための意味論的ラベルです。
+
+#### Percentage (%)
+
+- pxToPercent / percentToPx
+
+※ % 系は コンテナ基準サイズを前提とした変換です。
 
 ---
 
@@ -305,9 +333,11 @@ This project is licensed under the MIT License - see the [LICENSE](./LICENSE) fi
 ---
 
 ## 補足（重要）
-
-- 例外として、emの性質上pxToEmとemToPxはデフォルト値を持ちません
-- emはコンテキスト依存の単位であり、暗黙の基準値を持たせると誤用を助長するためです。
+- 例外として、以下の関数はデフォルト値を持ちません。
+  - pxToEm / emToPx
+  - pxToVw / vwToPx
+  - pxToPercent / percentToPx
+- em、vw、%はコンテキスト依存の単位であり、暗黙の基準値を持たせると誤用を助長するためです。
 
 ---
 

@@ -6,6 +6,9 @@ import {
   rClampRem,
   pxToRem,
   remToPx,
+  pxToVw,
+  vwToPx,
+
 } from '../../src/css';
 
 describe('Backward compatibility (public API)', () => {
@@ -25,5 +28,13 @@ describe('Backward compatibility (public API)', () => {
 
   it('supports legacy remToPx usage', () => {
     expect(remToPx('1rem')).toBe('16px');
+  });
+
+  it('supports legacy pxToVw usage', () => {
+    expect(pxToVw(375, 375)).toBe('100vw');
+  });
+
+  it('supports legacy vwToPx usage', () => {
+    expect(vwToPx(100, 375)).toBe('375px');
   });
 });

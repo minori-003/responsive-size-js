@@ -13,13 +13,9 @@ export function vwToPxRaw(vw: string | number, baseViewportWidth: string | numbe
   const vwNum = removeUnit(vw);
   const baseViewportWidthNum = removeUnit(baseViewportWidth);
 
-  if(baseViewportWidthNum <= 0){
-    throw new RangeError('baseViewportWidth must be greater than 0');
-  }
-
   const pxValueProduct = vwNum * baseViewportWidthNum;
 
-  const pxValueRaw = toRatio(pxValueProduct, 100);
-
-  return pxValueRaw;
+  return toRatio(pxValueProduct, 100, {
+    errorMessage: 'baseViewportWidth must be greater than 0',
+  });
 }
