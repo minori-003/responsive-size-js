@@ -1,6 +1,5 @@
 // vwSpToPxRaw.ts
 
-import { removeUnit } from '../utils/removeUnit.js';
 import { vwToPxRaw } from './vwToPxRaw.js';
 
 /**
@@ -9,18 +8,15 @@ import { vwToPxRaw } from './vwToPxRaw.js';
  * @param {number|string} baseViewportWidth
  * @returns {number}
  */
+
+type VwSpToPxRawOptions = {
+  errorMessage?: string;
+};
+
 export function vwSpToPxRaw(
   vw: string | number,
-  baseViewportWidth: string | number
-){
-  const vwNum = removeUnit(vw);
-  const baseViewportWidthNum = removeUnit(baseViewportWidth);
-
-  if(baseViewportWidthNum <= 0){
-    throw new RangeError('baseViewportWidth must be greater than 0');
-  }
-
-  const pxValueRaw = vwToPxRaw(vwNum, baseViewportWidthNum);
-
-  return pxValueRaw;
+  baseViewportWidth: string | number,
+  options?: VwSpToPxRawOptions
+) {
+  return vwToPxRaw(vw, baseViewportWidth, options);
 }

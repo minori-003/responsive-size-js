@@ -13,17 +13,21 @@ import { DEFAULT_SETTINGS } from '../setting/index.js';
  */
 type VwPcToPxOptions = {
     precision?: number;
+    errorMessage?: string;
 };
 
 export function vwPcToPx(vw: string | number,
   baseViewportWidth: string | number = DEFAULT_SETTINGS.maxViewportWidth,
   options: VwPcToPxOptions = {}){
-  const { precision = 3 } = options;
+  const {
+    precision = 3,
+    errorMessage
+   } = options;
 
   if (!Number.isInteger(precision) || precision < 0) {
     throw new RangeError('precision must be a non-negative integer');
   }
-  const pxValue = vwPcToPxRaw(vw, baseViewportWidth);
+  const pxValue = vwPcToPxRaw(vw, baseViewportWidth, { errorMessage });
   const roundedValue = Number(pxValue.toFixed(precision));
 
   return `${roundedValue}px`;

@@ -12,18 +12,21 @@ import { vwToPxRaw } from '../raw/vwToPxRaw.js';
  */
 type VwToPxOptions = {
     precision?: number;
+    errorMessage?: string;
 };
 
 export function vwToPx(
   vw: string | number,
   baseViewportWidth: string | number,
   options: VwToPxOptions = {}){
-  const { precision = 3 } = options;
+  const { precision = 3,
+    errorMessage
+   } = options;
 
   if (!Number.isInteger(precision) || precision < 0) {
     throw new RangeError('precision must be a non-negative integer');
   }
-  const pxValue = vwToPxRaw(vw, baseViewportWidth);
+  const pxValue = vwToPxRaw(vw, baseViewportWidth, { errorMessage });
   const roundedValue = Number(pxValue.toFixed(precision));
 
   return `${roundedValue}px`;
