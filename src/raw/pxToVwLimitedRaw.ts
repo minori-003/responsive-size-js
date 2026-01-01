@@ -1,5 +1,13 @@
 // src/raw/pxToVwLimitedRaw.ts
 
+/**
+ * px を vw に変換し、CSS の min() / max() で
+ * 制限をかけるための raw 値を返す。
+ *
+ * この関数自体は制限を適用しない。
+ * 制限は css レイヤーで行うことを前提とする。
+ */
+
 import { removeUnit } from '../utils/removeUnit.js';
 import { pxToVwRaw } from './pxToVwRaw.js';
 
@@ -20,7 +28,6 @@ export function pxToVwLimitedRaw(
   const pxValue = removeUnit(px);
 
   // 2. VW値を算出
-  // 修正点: ここで元の 'px' ではなく、抽出済みの 'pxValue' を渡すと効率的です
   const vwValueRaw = pxToVwRaw(pxValue, baseViewportWidth, { errorMessage });
 
   return {

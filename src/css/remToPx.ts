@@ -13,17 +13,21 @@ import { DEFAULT_SETTINGS } from '../setting/index.js';
  */
 type RemToPxOptions = {
     precision?: number;
+    errorMessage?: string;
 };
 
 export function remToPx(rem: string | number,
   baseFontSize: string | number = DEFAULT_SETTINGS.rootFontSize,
   options: RemToPxOptions = {}){
-  const { precision = 3 } = options;
+  const {
+    precision = 3,
+    errorMessage
+  } = options;
 
   if (!Number.isInteger(precision) || precision < 0) {
     throw new RangeError('precision must be a non-negative integer');
   }
-  const pxValue = remToPxRaw(rem, baseFontSize);
+  const pxValue = remToPxRaw(rem, baseFontSize, { errorMessage });
   const roundedValue = Number(pxValue.toFixed(precision));
 
   return `${roundedValue}px`;

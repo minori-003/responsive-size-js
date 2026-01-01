@@ -8,12 +8,20 @@ import { removeUnit } from '../utils/removeUnit.js';
  * @param {number|string} baseFontSize
  * @returns {number}
  */
-export function emToPxRaw(em: string | number, baseFontSize: string | number){
+
+type EmToPxRawOptions = {
+    precision?: number;
+    errorMessage?: string;
+};
+export function emToPxRaw(em: string | number, baseFontSize: string | number, options: EmToPxRawOptions = {}){
   const emNum = removeUnit(em);
   const baseFontSizeNum = removeUnit(baseFontSize);
+  const {
+    errorMessage = 'baseFontSize must be greater than 0'
+  } = options;
 
   if(baseFontSizeNum <= 0){
-    throw new RangeError('baseFontSize must be greater than 0');
+    throw new RangeError(errorMessage);
   }
 
   const pxValueRaw = emNum * baseFontSizeNum;

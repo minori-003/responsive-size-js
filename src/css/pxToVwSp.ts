@@ -23,7 +23,7 @@ export function pxToVwSp(
   options:PxToVwSpOptions = {}
 ){
   const { precision = 3,
-    errorMessage = 'baseViewportWidth must be greater than 0'
+    errorMessage
   } = options;
 
   if (!Number.isInteger(precision) || precision < 0) {

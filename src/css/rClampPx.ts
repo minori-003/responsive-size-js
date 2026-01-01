@@ -2,7 +2,7 @@
 import { rClampPxRaw } from '../raw/rClampPxRaw.js';
 import { DEFAULT_SETTINGS } from '../setting/index.js';
 
-type rClampPxOptions = {
+type RClampPxOptions = {
     allowReverse?: boolean;
     minViewportDiff?: number;
     precision?: number;
@@ -13,7 +13,7 @@ export function rClampPx(
     maxSize: string | number,
     minViewport: string | number = DEFAULT_SETTINGS.minViewportWidth,
     maxViewport: string | number = DEFAULT_SETTINGS.maxViewportWidth,
-    options: rClampPxOptions = {}
+    options: RClampPxOptions = {}
 ) {
     const {
         allowReverse = false,

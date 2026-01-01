@@ -15,3 +15,4 @@ export * from './pxToVwSp.js';
 export * from './vwSpToPx.js';
 export * from './pxToPercent.js';
 export * from './percentToPx.js';
+export * from './pxToVwLimitedPc.js';

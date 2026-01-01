@@ -4,8 +4,10 @@ import { pxToVwLimitedPcRaw } from '../raw/pxToVwLimitedPcRaw.js';
 import { DEFAULT_SETTINGS } from '../setting/index.js';
 
 /**
- * px を pcサイズのvwに変換し、上限を設けてCSSのmin/max関数文字列で返す
- * 例: 正の値 -> min(100px, 5.2vw) / 負の値 -> max(-100px, -5.2vw)
+ * px を PC サイズ基準の vw に変換し、
+ * CSS の min() / max() を用いて値の上限・下限を制限した文字列を返す。
+ *
+ * ※ 実際の制限ロジックは CSS 関数によって行われる
  */
 
 type PxToVwLimitedPcOptions = {

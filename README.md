@@ -97,6 +97,33 @@ vwToPx(100, 375); // "375px"
 
 ---
 
+### Limited viewport conversion (PC)
+
+画面幅が大きくなった際に、要素が過度に拡大されるのを防ぐためのユーティリティです。
+
+px値を**PC向けの基準ビューポート幅**（デフォルト: maxViewportWidth）を元にvwに変換し、  
+CSSの`min()` / `max()`を用いて上限を設けた文字列を返します。
+
+```typescript
+import { pxToVwLimitedPc } from 'responsive-size-js';
+
+pxToVwLimitedPc(100);
+// min(100px, 6.944vw)
+
+pxToVwLimitedPc(-100);
+// max(-100px, -6.944vw)
+
+pxToVwLimitedPc(100, 1920);
+// min(100px, 5.208vw)
+
+```
+
+- 正の値 → `min(px, vw)`
+
+- 負の値 → `max(px, vw)`
+
+---
+
 ## 特徴
 
 - CSS でそのまま使える文字列を返す API

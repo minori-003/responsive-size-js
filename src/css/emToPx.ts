@@ -12,18 +12,22 @@ import { emToPxRaw } from '../raw/emToPxRaw.js';
  */
 type EmToPxOptions = {
     precision?: number;
+    errorMessage?: string;
 };
 
 export function emToPx(
   em: string | number,
   baseFontSize: string | number,
   options: EmToPxOptions = {}){
-  const { precision = 3 } = options;
+  const {
+    precision = 3,
+    errorMessage,
+  } = options;
 
   if (!Number.isInteger(precision) || precision < 0) {
     throw new RangeError('precision must be a non-negative integer');
   }
-  const pxValue = emToPxRaw(em, baseFontSize);
+  const pxValue = emToPxRaw(em, baseFontSize, { errorMessage });
   const roundedValue = Number(pxValue.toFixed(precision));
 
   return `${roundedValue}px`;

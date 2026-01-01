@@ -3,7 +3,11 @@
 import { pxToVwLimitedRaw } from './pxToVwLimitedRaw.js';
 
 /**
- * px を vw に変換し、css関数min()またはmax()で使用するための数値として返す
+ * PC レイアウト基準の px 値を vw に変換し、
+ * CSS の min() / max() で制限をかけるための raw 値を返す。
+ *
+ * この関数自体は制限を適用しない。
+ * 制限は css レイヤーで行うことを前提とする。
  * @param {number|string} px
  * @param {number|string} baseViewportWidth
  * @returns {{pxValue: number, vwValueRaw: number}}
@@ -15,7 +19,5 @@ type PxToVwLimitedPcRawOptions = {
 
 export function pxToVwLimitedPcRaw(px: string | number, baseViewportWidth: string | number, options?: PxToVwLimitedPcRawOptions ){
 
-    // オプションと処理をそのまま委譲（パススルー）
-  // 変数への分割代入 → 再return は不要なので、直接返します
   return pxToVwLimitedRaw(px, baseViewportWidth, options);
 }

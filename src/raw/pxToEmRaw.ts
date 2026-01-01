@@ -1,6 +1,5 @@
 // pxToEmRaw.ts
 
-import { removeUnit } from '../utils/removeUnit.js';
 import { toRatio } from '../utils/toRatio.js';
 
 
@@ -11,16 +10,16 @@ import { toRatio } from '../utils/toRatio.js';
  * @returns {number}
  */
 
-type pxToEmRawOptions = {
+type PxToEmRawOptions = {
   errorMessage?: string;
 };
 
-export function pxToEmRaw(px: string | number, baseFontSize: string | number, options: pxToEmRawOptions = {}){
+export function pxToEmRaw(px: string | number, baseFontSize: string | number, options: PxToEmRawOptions = {}){
   const {
     errorMessage = 'baseFontSize must be greater than 0'
   } = options;
 
-  const emValueRaw = toRatio(removeUnit(px), removeUnit(baseFontSize), { errorMessage });
+  const emValueRaw = toRatio(px, baseFontSize, { errorMessage });
 
   return emValueRaw;
 }

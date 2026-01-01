@@ -2,7 +2,7 @@
 import { rClampRemRaw } from '../raw/rClampRemRaw.js';
 import { DEFAULT_SETTINGS } from '../setting/index.js';
 
-type rClampRemOptions = {
+type RClampRemOptions = {
     allowReverse?: boolean;
     minViewportDiff?: number;
     baseFontSize?: string | number;
@@ -14,7 +14,7 @@ export function rClampRem(
     maxSize: string | number,
     minViewport: string | number = DEFAULT_SETTINGS.minViewportWidth,
     maxViewport: string | number = DEFAULT_SETTINGS.maxViewportWidth,
-    options: rClampRemOptions = {}
+    options: RClampRemOptions = {}
 ) {
     const {
         allowReverse = false,

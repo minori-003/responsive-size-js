@@ -9,11 +9,11 @@ import { pxToEmRaw } from './pxToEmRaw.js';
  * @returns {number}
  */
 
-type pxToRemRawOptions = {
+type PxToRemRawOptions = {
   errorMessage?: string;
 };
 
-export function pxToRemRaw(px: string | number, baseFontSize: string | number, options: pxToRemRawOptions = {}){
+export function pxToRemRaw(px: string | number, baseFontSize: string | number, options: PxToRemRawOptions = {}){
   const {
     errorMessage = 'baseFontSize must be greater than 0'
   } = options;

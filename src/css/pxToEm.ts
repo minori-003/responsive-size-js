@@ -11,17 +11,21 @@ import { pxToEmRaw } from '../raw/pxToEmRaw.js';
  * @returns {string}
  */
 
-type pxToEmOptions = {
+type PxToEmOptions = {
   precision?: number;
+  errorMessage?: string;
 };
 
-export function pxToEm(px: string | number, baseFontSize: string | number, options:pxToEmOptions = {}){
-  const { precision = 3 } = options;
+export function pxToEm(px: string | number, baseFontSize: string | number, options:PxToEmOptions = {}){
+  const {
+    precision = 3,
+    errorMessage
+  } = options;
 
   if (!Number.isInteger(precision) || precision < 0) {
     throw new RangeError('precision must be a non-negative integer');
   }
-  const emValue = pxToEmRaw(px, baseFontSize);
+  const emValue = pxToEmRaw(px, baseFontSize, { errorMessage });
   const roundedValue = Number(emValue.toFixed(precision));
 
   return `${roundedValue}em`;

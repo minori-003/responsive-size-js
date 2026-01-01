@@ -10,6 +10,7 @@ type PxToPtOptions = {
      * Trailing zeros will be removed.
      */
     precision?: number;
+    errorMessage?: string;
 };
 
 /**
@@ -24,7 +25,8 @@ export function pxToPt(
     const {
         targetDpi = DEFAULT_SETTINGS.dpi.legacy,
         sourceDpi = DEFAULT_SETTINGS.dpi.web,
-        precision = 3
+        precision = 3,
+        errorMessage
     } = options;
 
     if (!Number.isInteger(precision) || precision < 0) {
@@ -32,7 +34,7 @@ export function pxToPt(
     }
 
     // undefinedを渡すとデフォルト値が適用されます
-    const ptValueRaw = pxToPtRaw(px, targetDpi, sourceDpi);
+    const ptValueRaw = pxToPtRaw(px, targetDpi, sourceDpi, { errorMessage });
     
     // 指定桁で四捨五入し、Number()で不要な末尾ゼロを除去
     const roundedPtValue = Number(ptValueRaw.toFixed(precision));
